@@ -1,0 +1,88 @@
+<div class="alerts-card">
+
+    <div class="alerts-header">
+
+        <div>
+            <h3>Gym Alerts</h3>
+            <p>Important updates and activities</p>
+        </div>
+
+        <div class="bell-icon">
+            <i class="bi bi-bell-fill"></i>
+        </div>
+
+    </div>
+
+
+    <div class="alerts-grid" *ngIf="!loading">
+
+        <!-- Expired Membership -->
+        <div class="alert-item expired">
+
+            <div class="alert-icon">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+
+            <div class="alert-info">
+                <h4>{{ alerts.expiredMemberships }}</h4>
+                <p>Expired Memberships</p>
+            </div>
+
+        </div>
+
+
+        <!-- Low Stock -->
+        <div class="alert-item stock">
+
+            <div class="alert-icon">
+                <i class="bi bi-box-seam-fill"></i>
+            </div>
+
+            <div class="alert-info">
+                <h4>{{ alerts.lowStockProducts }}</h4>
+                <p>Low Stock Products</p>
+            </div>
+
+        </div>
+
+
+        <!-- Attendance -->
+        <div class="alert-item attendance">
+
+            <div class="alert-icon">
+                <i class="bi bi-calendar-check-fill"></i>
+            </div>
+
+            <div class="alert-info">
+                <h4>{{ alerts.todayAttendance }}</h4>
+                <p>Today's Attendance</p>
+            </div>
+
+        </div>
+
+
+        <!-- Notifications -->
+        <div class="alert-item notifications">
+
+            <div class="alert-icon">
+                <i class="bi bi-bell-fill"></i>
+            </div>
+
+            <div class="alert-info">
+                <h4>{{ alerts.totalNotifications }}</h4>
+                <p>Notifications</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="loading" *ngIf="loading">
+
+        <i class="bi bi-arrow-repeat"></i>
+        Loading alerts...
+
+    </div>
+
+</div>

@@ -1,0 +1,145 @@
+.product-container{
+    margin-top:30px;
+    background:#fff;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.header h2{
+    margin:0;
+    font-size:30px;
+    color:#111827;
+}
+
+.header p{
+    margin-top:5px;
+    color:#6b7280;
+}
+
+.add-btn{
+    background:#dc3545;
+    color:#fff;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.add-btn:hover{
+    background:#bb2d3b;
+}
+
+.table-box{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#111827;
+    color:#fff;
+}
+
+th{
+    padding:16px;
+    text-align:left;
+}
+
+td{
+    padding:16px;
+    border-bottom:1px solid #eee;
+}
+
+tbody tr:hover{
+    background:#f8fafc;
+}
+
+.edit,
+.delete{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:8px;
+    color:#fff;
+    cursor:pointer;
+    margin-right:8px;
+}
+
+.edit{
+    background:#f59e0b;
+}
+
+.delete{
+    background:#dc2626;
+}
+
+.edit:hover,
+.delete:hover{
+    transform:scale(1.05);
+    transition:.3s;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.modal-content{
+    width:420px;
+    background:#fff;
+    padding:25px;
+    border-radius:15px;
+}
+
+.modal-content h3{
+    margin-bottom:20px;
+}
+
+.modal-content input,
+.modal-content textarea{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    outline:none;
+}
+
+.modal-buttons{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+}
+
+.cancel-btn{
+    background:#6b7280;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+}
+
+.save-btn{
+    background:#dc3545;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+}

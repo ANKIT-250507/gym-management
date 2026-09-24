@@ -1,0 +1,176 @@
+.alerts-card {
+    margin-top: 30px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    border: 1px solid #f1f1f1;
+}
+
+.alerts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.alerts-header h3 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.alerts-header p {
+    margin: 5px 0 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.bell-icon {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 12px;
+
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+.bell-icon i {
+    font-size: 20px;
+}
+
+
+.alerts-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+
+.alert-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 18px;
+
+    border-radius: 15px;
+
+    transition: .3s;
+}
+
+.alert-item:hover {
+    transform: translateY(-4px);
+}
+
+
+.alert-icon {
+    min-width: 45px;
+    height: 45px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 12px;
+}
+
+.alert-icon i {
+    font-size: 19px;
+}
+
+
+.alert-info h4 {
+    margin: 0;
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.alert-info p {
+    margin: 4px 0 0;
+
+    font-size: 12px;
+}
+
+
+/* Expired */
+
+.alert-item.expired {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.alert-item.expired .alert-icon {
+    background: #fee2e2;
+}
+
+
+/* Stock */
+
+.alert-item.stock {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+.alert-item.stock .alert-icon {
+    background: #ffedd5;
+}
+
+
+/* Attendance */
+
+.alert-item.attendance {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.alert-item.attendance .alert-icon {
+    background: #d1fae5;
+}
+
+
+/* Notifications */
+
+.alert-item.notifications {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+.alert-item.notifications .alert-icon {
+    background: #ede9fe;
+}
+
+
+/* Loading */
+
+.loading {
+    padding: 30px;
+    text-align: center;
+    color: #6b7280;
+}
+
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+
+    .alerts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .alerts-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

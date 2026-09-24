@@ -1,0 +1,170 @@
+<div class="settings-page">
+
+    <div class="page-header">
+        <div>
+            <h1>Settings</h1>
+            <p>Manage your gym system settings</p>
+        </div>
+    </div>
+
+
+    <!-- Gym Information -->
+
+    <div class="settings-card">
+
+        <div class="card-title">
+            <i class="bi bi-building"></i>
+
+            <div>
+                <h2>Gym Information</h2>
+                <p>Update your gym basic information</p>
+            </div>
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Gym Name</label>
+
+                <input
+                    type="text"
+                    [(ngModel)]="gymName"
+                    placeholder="Enter gym name">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    [(ngModel)]="gymEmail"
+                    placeholder="Enter email">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Phone</label>
+
+                <input
+                    type="text"
+                    [(ngModel)]="gymPhone"
+                    placeholder="Enter phone">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Notifications -->
+
+    <div class="settings-card">
+
+        <div class="card-title">
+
+            <i class="bi bi-bell-fill"></i>
+
+            <div>
+                <h2>Notifications</h2>
+                <p>Control gym notifications and alerts</p>
+            </div>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>Enable Notifications</strong>
+                <p>Receive important gym notifications</p>
+            </div>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    [(ngModel)]="notifications">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>Membership Expiry Alerts</strong>
+                <p>Get alerts when membership is about to expire</p>
+            </div>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    [(ngModel)]="membershipAlerts">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>Holiday Alerts</strong>
+                <p>Notify members about gym holidays</p>
+            </div>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    [(ngModel)]="holidayAlerts">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <!-- Actions -->
+
+    <div class="actions">
+
+        <button
+            class="reset-btn"
+            (click)="resetSettings()">
+
+            <i class="bi bi-arrow-counterclockwise"></i>
+            Reset
+
+        </button>
+
+
+        <button
+            class="save-btn"
+            (click)="saveSettings()">
+
+            <i class="bi bi-check-circle"></i>
+            Save Settings
+
+        </button>
+
+    </div>
+
+</div>

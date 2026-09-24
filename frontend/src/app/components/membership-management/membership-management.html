@@ -1,0 +1,453 @@
+<div class="membership-page">
+
+    <div class="page-header">
+
+        <div>
+            <h1>Membership Management</h1>
+            <p>Manage gym memberships, payments and renewals</p>
+        </div>
+
+        <button class="add-btn" (click)="openAddModal()">
+
+            <i class="bi bi-plus-circle"></i>
+            Add Membership
+
+        </button>
+
+    </div>
+
+
+    <!-- Stats -->
+
+    <div class="stat-card blue">
+        <div>
+            <h2>{{ memberships.length }}</h2>
+            <p>Total Memberships</p>
+        </div>
+        <i class="bi bi-credit-card-fill"></i>
+    </div>
+
+    <div class="stat-card green">
+        <div>
+            <h2>{{ activeCount }}</h2>
+            <p>Active</p>
+        </div>
+        <i class="bi bi-check-circle-fill"></i>
+    </div>
+
+    <div class="stat-card red">
+        <div>
+            <h2>{{ expiredCount }}</h2>
+            <p>Expired</p>
+        </div>
+        <i class="bi bi-exclamation-circle-fill"></i>
+    </div>
+
+    <div class="stat-card orange">
+        <div>
+            <h2>₹{{ totalFees }}</h2>
+            <p>Total Fees</p>
+        </div>
+        <i class="bi bi-currency-rupee"></i>
+    </div>
+
+</div>
+
+
+<!-- Table -->
+
+<div class="table-card">
+
+    <div class="table-top">
+
+        <h2>All Memberships</h2>
+
+        <span>
+            {{ memberships.length }} Records
+        </span>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Member</th>
+
+                    <th>Plan</th>
+
+                    <th>Duration</th>
+
+                    <th>Fees</th>
+
+                    <th>Payment</th>
+
+                    <th>Start Date</th>
+
+                    <th>Expiry</th>
+
+                    <th>Status</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr *ngFor="let membership of memberships">
+
+                    <td>
+
+                        <strong>
+                            {{
+                            membership.member?.name ||
+                            'Unknown'
+                            }}
+                        </strong>
+
+                        <small>
+                            {{
+                            membership.member?.email ||
+                            ''
+                            }}
+                        </small>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="plan">
+                            {{ membership.planName }}
+                        </span>
+
+                    </td>
+
+
+                    <td>
+                        {{ membership.duration }} Month
+                    </td>
+
+
+                    <td>
+                        ₹{{ membership.fees }}
+                    </td>
+
+
+                    <td>
+
+                        <span class="payment" [class.paid]="membership.paymentStatus === 'Paid'"
+                            [class.pending]="membership.paymentStatus === 'Pending'">
+
+                            {{ membership.paymentStatus }}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        {{
+                        membership.startDate
+                        | date:'dd MMM yyyy'
+                        }}
+
+                    </td>
+
+
+                    <td>
+
+                        {{
+                        membership.expiryDate
+                        | date:'dd MMM yyyy'
+                        }}
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="status" [class.expired]="isExpired(membership.expiryDate)"
+                            [class.active]="!isExpired(membership.expiryDate)">
+
+                            <i class="bi" [class.bi-check-circle-fill]="!isExpired(membership.expiryDate)"
+                                [class.bi-x-circle-fill]="isExpired(membership.expiryDate)">
+                            </i>
+
+                            {{
+                            isExpired(membership.expiryDate)
+                            ? 'Expired'
+                            : 'Active'
+                            }}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <div class="actions">
+
+                            <button class="edit" title="Edit" (click)="editMembership(membership)">
+
+                                <i class="bi bi-pencil-fill"></i>
+
+                            </button>
+
+
+                            <button class="renew" title="Renew" (click)="openRenewModal(membership)">
+
+                                <i class="bi bi-arrow-repeat"></i>
+
+                            </button>
+
+
+                            <button class="delete" title="Delete" (click)="deleteMembership(membership._id)">
+
+                                <i class="bi bi-trash-fill"></i>
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+
+                <tr *ngIf="memberships.length === 0">
+
+                    <td colspan="9" class="empty">
+
+                        <i class="bi bi-credit-card"></i>
+
+                        <h3>No Memberships Found</h3>
+
+                        <p>Create your first membership.</p>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- Add/Edit Modal -->
+
+<div class="modal-overlay" *ngIf="showModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2>
+                {{
+                editing
+                ? 'Edit Membership'
+                : 'Add Membership'
+                }}
+            </h2>
+
+            <button class="close" (click)="closeModal()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div class="form-grid">
+
+
+            <div class="form-group">
+
+                <label>Member</label>
+
+                <select [(ngModel)]="newMembership.member">
+
+                    <option value="">
+                        Select Member
+                    </option>
+
+                    <option *ngFor="let member of members" [value]="member._id">
+
+                        {{ member.name }}
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Plan Name</label>
+
+                <input type="text" [(ngModel)]="newMembership.planName" placeholder="Premium">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Duration (Months)</label>
+
+                <input type="number" min="1" [(ngModel)]="newMembership.duration">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Fees</label>
+
+                <input type="number" min="0" [(ngModel)]="newMembership.fees">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Payment Status</label>
+
+                <select [(ngModel)]="newMembership.paymentStatus">
+
+                    <option value="Paid">Paid</option>
+
+                    <option value="Pending">
+                        Pending
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Start Date</label>
+
+                <input type="date" [(ngModel)]="newMembership.startDate">
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>Expiry Date</label>
+
+                <input type="date" [(ngModel)]="newMembership.expiryDate">
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button class="cancel" (click)="closeModal()">
+
+                Cancel
+
+            </button>
+
+            <button class="save" (click)="saveMembership()">
+
+                {{
+                editing
+                ? 'Update'
+                : 'Save'
+                }}
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Renew Modal -->
+
+<div class="modal-overlay" *ngIf="showRenewModal">
+
+    <div class="modal small">
+
+        <div class="modal-header">
+
+            <h2>Renew Membership</h2>
+
+            <button class="close" (click)="showRenewModal = false">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Duration (Months)</label>
+
+            <input type="number" min="1" [(ngModel)]="renewData.duration">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Fees</label>
+
+            <input type="number" [(ngModel)]="renewData.fees">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>New Expiry Date</label>
+
+            <input type="date" [(ngModel)]="renewData.expiryDate">
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button class="cancel" (click)="showRenewModal = false">
+
+                Cancel
+
+            </button>
+
+            <button class="save" (click)="renewMembership()">
+
+                Renew
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

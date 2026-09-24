@@ -1,0 +1,188 @@
+<div class="workout-page">
+
+    <div class="workout-header">
+
+        <div>
+            <span class="small-title">
+                FITNESS
+            </span>
+
+            <h1>
+                My Workout Plan 🏋️
+            </h1>
+
+            <p>
+                Follow your trainer assigned workout plan.
+            </p>
+        </div>
+
+    </div>
+
+
+    @if (loading) {
+
+    <div class="loading-box">
+
+        <div class="loader"></div>
+
+        <h3>
+            Loading workout...
+        </h3>
+
+        <p>
+            Please wait.
+        </p>
+
+    </div>
+
+    }
+
+
+    @if (!loading && errorMessage) {
+
+    <div class="error-box">
+
+        <h3>
+            Unable to load workout
+        </h3>
+
+        <p>
+            {{ errorMessage }}
+        </p>
+
+        <button (click)="loadWorkouts()">
+            Try Again
+        </button>
+
+    </div>
+
+    }
+
+
+    @if (!loading && !errorMessage && workouts.length === 0) {
+
+    <div class="empty-box">
+
+        <div class="empty-icon">
+            🏋️
+        </div>
+
+        <h2>
+            No Workout Assigned
+        </h2>
+
+        <p>
+            Your trainer has not assigned a workout plan yet.
+        </p>
+
+    </div>
+
+    }
+
+
+    @if (!loading && !errorMessage && workouts.length > 0) {
+
+    <div class="workout-list">
+
+        @for (workout of workouts; track workout._id) {
+
+        <div class="workout-card">
+
+            <div class="workout-card-header">
+
+                <div>
+
+                    <span class="day">
+                        {{ workout.day }}
+                    </span>
+
+                    <h2>
+                        {{ workout.workoutName }}
+                    </h2>
+
+                </div>
+
+                <span class="status">
+                    {{ workout.status }}
+                </span>
+                @if (workout.status !== 'Completed') {
+
+                <button class="complete-btn" (click)="completeWorkout(workout._id)">
+                    ✅ Mark as Completed
+                </button>
+
+                }
+
+            </div>
+
+
+            @if (workout.trainer) {
+
+            <div class="trainer-info">
+
+                👨‍🏫 Trainer:
+                <strong>
+                    {{ workout.trainer.name }}
+                </strong>
+
+            </div>
+
+            }
+
+
+            <div class="exercise-title">
+                Exercises
+            </div>
+
+
+            <div class="exercise-list">
+
+                @for (exercise of workout.exercises; track $index) {
+
+                <div class="exercise">
+
+                    <div class="exercise-icon">
+                        🏋️
+                    </div>
+
+                    <div class="exercise-info">
+
+                        <h3>
+                            {{ exercise.exerciseName }}
+                        </h3>
+
+                        <p>
+                            {{ exercise.sets }} Sets
+                            ×
+                            {{ exercise.reps }} Reps
+                        </p>
+
+                    </div>
+
+                    <div class="rest">
+
+                        <span>
+                            Rest
+                        </span>
+
+                        <strong>
+                            {{ exercise.restTime }} sec
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                }
+
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+
+    }
+
+</div>

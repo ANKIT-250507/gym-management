@@ -1,0 +1,47 @@
+<table class="members-table">
+
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Phone</th>
+      <th>Gender</th>
+      <th>Goal</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <tr *ngFor="let member of filteredMembers">
+
+      <td>{{ member.name }}</td>
+
+      <td>{{ member.email }}</td>
+
+      <td>
+        <span class="role-badge">
+          <i class="bi bi-person-fill"></i>
+          {{ member.role }}
+        </span>
+      </td>
+
+      <td>{{ member.phone || '-' }}</td>
+
+      <td>{{ member.gender || '-' }}</td>
+
+      <td>{{ member.goal || '-' }}</td>
+
+      <td>
+        <span class="status active">
+          <i class="bi bi-circle-fill"></i>
+          Active
+        </span>
+      </td>
+
+    </tr>
+
+  </tbody>
+
+</table>

@@ -1,0 +1,190 @@
+<div class="workout-container">
+
+    <div class="header">
+
+        <div>
+
+            <h2>Workout Management</h2>
+
+            <p>Assign and Manage Member Workouts</p>
+
+        </div>
+
+        <button class="add-btn" (click)="showModal=true; resetForm()">
+
+            <i class="bi bi-plus-circle-fill"></i>
+
+            Add Workout
+
+        </button>
+
+    </div>
+
+    <div class="table-box">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Member</th>
+
+                    <th>Workout</th>
+
+                    <th>Day</th>
+
+                    <th>Exercises</th>
+
+                    <th>Status</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let item of workouts">
+
+                    <td>{{item.member?.name}}</td>
+
+                    <td>{{item.workoutName}}</td>
+
+                    <td>{{item.day}}</td>
+
+                    <td>
+
+                        <div *ngFor="let ex of item.exercises">
+
+                            {{ex.exerciseName}}
+
+                            ({{ex.sets}} x {{ex.reps}})
+
+                        </div>
+
+                    </td>
+
+                    <td>
+
+                        {{item.status}}
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="edit"
+                            (click)="editWorkout(item)">
+
+                            <i class="bi bi-pencil-fill"></i>
+
+                        </button>
+
+                        <button
+                            class="delete"
+                            (click)="deleteWorkout(item._id)">
+
+                            <i class="bi bi-trash-fill"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- Modal -->
+
+<div
+    class="modal"
+    *ngIf="showModal">
+
+    <div class="modal-content">
+
+        <h3>
+
+            {{editing ? 'Update Workout' : 'Add Workout'}}
+
+        </h3>
+
+        <input
+            type="text"
+            placeholder="Member Id"
+            [(ngModel)]="newWorkout.member">
+
+        <input
+            type="text"
+            placeholder="Workout Name"
+            [(ngModel)]="newWorkout.workoutName">
+
+        <select [(ngModel)]="newWorkout.day">
+
+            <option>Monday</option>
+
+            <option>Tuesday</option>
+
+            <option>Wednesday</option>
+
+            <option>Thursday</option>
+
+            <option>Friday</option>
+
+            <option>Saturday</option>
+
+            <option>Sunday</option>
+
+        </select>
+
+        <input
+            type="text"
+            placeholder="Exercise Name"
+            [(ngModel)]="newWorkout.exercises[0].exerciseName">
+
+        <input
+            type="number"
+            placeholder="Sets"
+            [(ngModel)]="newWorkout.exercises[0].sets">
+
+        <input
+            type="number"
+            placeholder="Reps"
+            [(ngModel)]="newWorkout.exercises[0].reps">
+
+        <input
+            type="number"
+            placeholder="Rest Time (Seconds)"
+            [(ngModel)]="newWorkout.exercises[0].restTime">
+
+        <div class="modal-buttons">
+
+            <button
+                class="cancel-btn"
+                (click)="showModal=false">
+
+                Cancel
+
+            </button>
+
+            <button
+                type="button"
+                class="save-btn"
+                (click)="addWorkout()">
+
+                {{editing ? 'Update' : 'Save'}}
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

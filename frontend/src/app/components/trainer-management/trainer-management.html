@@ -1,0 +1,136 @@
+<div class="trainer-container">
+
+    <div class="header">
+
+        <div>
+
+            <h2>Trainer Dashboard</h2>
+
+            <p>Manage Members & Assigned Workouts</p>
+
+        </div>
+
+    </div>
+
+    <div class="tabs">
+
+        <button
+            [class.active]="activeTab==='members'"
+            (click)="showMembers()">
+
+            Members
+
+        </button>
+
+        <button
+            [class.active]="activeTab==='workouts'"
+            (click)="showWorkouts()">
+
+            Workouts
+
+        </button>
+
+    </div>
+
+    <!-- Members -->
+
+    <div *ngIf="activeTab==='members'" class="table-box">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Name</th>
+
+                    <th>Email</th>
+
+                    <th>Phone</th>
+
+                    <th>Gender</th>
+
+                    <th>Goal</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let member of members">
+
+                    <td>{{member.name}}</td>
+
+                    <td>{{member.email}}</td>
+
+                    <td>{{member.phone || '--'}}</td>
+
+                    <td>{{member.gender}}</td>
+
+                    <td>{{member.goal}}</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Workouts -->
+
+    <div *ngIf="activeTab==='workouts'" class="table-box">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Member</th>
+
+                    <th>Workout</th>
+
+                    <th>Day</th>
+
+                    <th>Status</th>
+
+                    <th>Exercises</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let workout of workouts">
+
+                    <td>{{workout.member?.name}}</td>
+
+                    <td>{{workout.workoutName}}</td>
+
+                    <td>{{workout.day}}</td>
+
+                    <td>{{workout.status}}</td>
+
+                    <td>
+
+                        <div *ngFor="let ex of workout.exercises">
+
+                            {{ex.exerciseName}}
+                            ({{ex.sets}} × {{ex.reps}})
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

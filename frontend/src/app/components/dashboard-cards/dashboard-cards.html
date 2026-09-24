@@ -1,0 +1,92 @@
+<div class="dashboard-cards">
+
+    <!-- Members -->
+    <div class="card members">
+
+        <div class="icon">
+            <i class="bi bi-people-fill"></i>
+        </div>
+
+        <div class="info">
+
+            <h2>{{ dashboard.totalMembers }}</h2>
+
+            <p>Total Members</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Attendance -->
+    <div class="card attendance">
+
+        <div class="icon">
+            <i class="bi bi-calendar-check-fill"></i>
+        </div>
+
+        <div class="info">
+
+            <h2>{{ dashboard.totalAttendance }}</h2>
+
+            <p>Total Attendance</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Membership -->
+    <div class="card membership">
+
+        <div class="icon">
+            <i class="bi bi-credit-card-fill"></i>
+        </div>
+
+        <div class="info">
+
+            <h2>{{ dashboard.totalMemberships }}</h2>
+
+            <p>Memberships</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Products -->
+    <div class="card products">
+
+        <div class="icon">
+            <i class="bi bi-box-seam-fill"></i>
+        </div>
+
+        <div class="info">
+
+            <h2>{{ dashboard.totalProducts }}</h2>
+
+            <p>Products</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Revenue -->
+    <div class="card revenue">
+
+        <div class="icon">
+            <i class="bi bi-currency-rupee"></i>
+        </div>
+
+        <div class="info">
+
+            <h2>₹ {{ revenue | number }}</h2>
+
+            <p>Total Revenue</p>
+
+        </div>
+
+    </div>
+
+</div>

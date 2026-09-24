@@ -1,0 +1,293 @@
+* {
+  box-sizing: border-box;
+}
+
+.workout-page {
+  min-height: 100vh;
+  padding: 30px;
+  background: #0f1117;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.workout-header {
+  margin-bottom: 30px;
+}
+
+.small-title {
+  color: #8b92a5;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+.workout-header h1 {
+  margin: 8px 0;
+  font-size: 30px;
+}
+
+.workout-header p {
+  color: #8f96a8;
+  font-size: 14px;
+}
+
+
+/* ================= WORKOUT CARD ================= */
+
+.workout-card {
+  background: #171a22;
+  border: 1px solid #272b36;
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.workout-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.day {
+  display: inline-block;
+  background: #e63946;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.workout-card h2 {
+  margin: 10px 0 0;
+  font-size: 22px;
+}
+
+.status {
+  background: #173524;
+  color: #62d994;
+  border: 1px solid #286440;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+
+/* ================= TRAINER ================= */
+
+.trainer-info {
+  background: #20242d;
+  border: 1px solid #2b303b;
+  padding: 12px;
+  border-radius: 9px;
+  color: #9da4b5;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.trainer-info strong {
+  color: white;
+}
+
+
+/* ================= EXERCISES ================= */
+
+.exercise-title {
+  color: #8b92a5;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.exercise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exercise {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #20242d;
+  border: 1px solid #2b303b;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.exercise-icon {
+  width: 45px;
+  height: 45px;
+  background: #292d38;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.exercise-info {
+  flex: 1;
+}
+
+.exercise-info h3 {
+  margin: 0 0 5px;
+  font-size: 14px;
+}
+
+.exercise-info p {
+  margin: 0;
+  color: #7e8596;
+  font-size: 12px;
+}
+
+.rest {
+  text-align: right;
+}
+
+.rest span {
+  display: block;
+  color: #777f91;
+  font-size: 10px;
+}
+
+.rest strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+
+/* ================= LOADING ================= */
+
+.loading-box {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  width: 45px;
+  height: 45px;
+  border: 4px solid #292d38;
+  border-top: 4px solid #e63946;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-box h3 {
+  margin-top: 20px;
+}
+
+.loading-box p {
+  color: #777f91;
+}
+
+
+/* ================= ERROR ================= */
+
+.error-box {
+  background: #21171a;
+  border: 1px solid #5b272e;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  max-width: 500px;
+  margin: 100px auto;
+}
+
+.error-box h3 {
+  color: #ff6673;
+}
+
+.error-box p {
+  color: #a8aeba;
+}
+
+.error-box button {
+  background: #e63946;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+/* ================= EMPTY ================= */
+
+.empty-box {
+  background: #171a22;
+  border: 1px solid #272b36;
+  border-radius: 18px;
+  padding: 60px 30px;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 45px;
+  margin-bottom: 15px;
+}
+
+.empty-box h2 {
+  margin-bottom: 8px;
+}
+
+.empty-box p {
+  color: #777f91;
+  font-size: 13px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 700px) {
+
+  .workout-page {
+    padding: 20px;
+  }
+
+  .workout-card-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .exercise {
+    flex-wrap: wrap;
+  }
+
+  .rest {
+    width: 100%;
+    text-align: left;
+    padding-left: 60px;
+  }
+
+}
+.complete-btn {
+  margin-bottom: 20px;
+  background: #e63946;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.complete-btn:hover {
+  opacity: 0.85;
+}

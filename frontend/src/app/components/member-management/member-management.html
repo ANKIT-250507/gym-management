@@ -1,0 +1,138 @@
+<div class="member-container">
+
+    <div class="header">
+
+        <div>
+
+            <h2>Members Management</h2>
+
+            <p style="color:red;font-size:20px;font-weight:bold">
+                🔥 TEST - MEMBER MANAGEMENT WORKING
+            </p>
+
+            <p>Manage all gym members</p>
+
+        </div>
+
+        <button class="add-btn" (click)="showAddModal = true">
+            <i class="bi bi-plus-circle"></i>
+            Add Member
+        </button>
+
+    </div>
+
+    <div class="toolbar">
+
+        <div class="search">
+
+            <i class="bi bi-search"></i>
+
+            <input type="text" placeholder="Search members..." [(ngModel)]="searchText" (input)="searchMembers()">
+
+        </div>
+
+        <select>
+
+            <option>All Memberships</option>
+
+            <option>Premium</option>
+
+            <option>Gold</option>
+
+            <option>Silver</option>
+
+        </select>
+
+    </div>
+    <h3>Total Members: {{ members.length }}</h3>
+
+    <div class="table-box">
+
+        <p><strong>Total Members:</strong> {{ members.length }}</p>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Goal</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr *ngIf="loading">
+                    <td colspan="6">Loading...</td>
+                </tr>
+
+                <tr *ngIf="!loading && members.length === 0">
+                    <td colspan="6">No Members Found</td>
+                </tr>
+
+                <tr *ngFor="let member of filteredMembers">
+
+                    <td>{{ member.name }}</td>
+
+                    <td>{{ member.email }}</td>
+
+                    <td>{{ member.phone || '-' }}</td>
+
+                    <td>{{ member.goal || '-' }}</td>
+
+                    <td>
+                        <span class="active">Active</span>
+                    </td>
+
+                    <td>
+
+                        <button class="view">
+                            <i class="bi bi-eye-fill"></i>
+                        </button>
+
+                        <button class="edit" (click)="editMember(member)">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+
+                        <button class="delete" (click)="deleteMember(member._id)">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <div class="modal-backdrop" *ngIf="showAddModal">
+
+        <div class="modal-box">
+
+            <h2>Add Member</h2>
+
+            <input type="text" placeholder="Name" [(ngModel)]="newMember.name">
+
+            <input type="email" placeholder="Email" [(ngModel)]="newMember.email">
+
+            <input type="password" placeholder="Password" [(ngModel)]="newMember.password">
+
+            <button (click)="addMember()">
+                Save Member
+            </button>
+
+            <button (click)="showAddModal=false">
+                Cancel
+            </button>
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,56 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AttendanceService {
+  private apiUrl = "http://localhost:3000/api/attendance";
+  constructor(private http: HttpClient) {}
+  private getHeaders() {
+
+    return {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    };
+
+  }
+  getAllAttendance(): Observable<any> {
+
+    return this.http.get(
+
+      this.apiUrl,
+
+      this.getHeaders()
+
+    );
+
+  }
+  updateAttendance(id: string, data: any): Observable<any> {
+
+    return this.http.put(
+
+      `${this.apiUrl}/${id}`,
+
+      data,
+
+      this.getHeaders()
+
+    );
+
+  }
+  deleteAttendance(id: string): Observable<any> {
+
+    return this.http.delete(
+
+      `${this.apiUrl}/${id}`,
+
+      this.getHeaders()
+
+    );
+
+  }
+
+}

@@ -1,0 +1,82 @@
+<div class="report-container">
+
+    <h2>Reports Dashboard</h2>
+
+    <div class="cards">
+
+        <div class="card blue">
+
+            <h4>Total Members</h4>
+
+            <h1>{{dashboard.totalMembers}}</h1>
+
+        </div>
+
+        <div class="card green">
+
+            <h4>Total Products</h4>
+
+            <h1>{{dashboard.totalProducts}}</h1>
+
+        </div>
+
+        <div class="card orange">
+
+            <h4>Total Memberships</h4>
+
+            <h1>{{dashboard.totalMemberships}}</h1>
+
+        </div>
+
+        <div class="card red">
+
+            <h4>Total Attendance</h4>
+
+            <h1>{{dashboard.totalAttendance}}</h1>
+
+        </div>
+
+    </div>
+
+    <div class="report-box">
+
+        <div class="report">
+
+            <h3>Total Revenue</h3>
+
+            <h1>₹ {{revenue.totalRevenue}}</h1>
+
+        </div>
+
+        <div class="report">
+
+            <h3>Products</h3>
+
+            <p>Total Products :
+                {{stock.totalProducts}}
+            </p>
+
+            <p>
+                Low Stock :
+                {{stock.lowStockProducts}}
+            </p>
+
+        </div>
+
+        <div class="report">
+
+            <h3>Attendance</h3>
+
+            <p>
+
+                Total Records :
+
+                {{attendance.totalRecords}}
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>

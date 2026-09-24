@@ -1,0 +1,130 @@
+<div class="attendance-container">
+
+    <div class="header">
+
+        <div>
+            <h2>Attendance Management</h2>
+            <p>Manage all member attendance</p>
+        </div>
+
+        <button class="refresh-btn" (click)="loadAttendance()">
+            <i class="bi bi-arrow-clockwise"></i>
+            Refresh
+        </button>
+
+    </div>
+
+    <div class="table-box">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Member</th>
+                    <th>Email</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let item of attendance">
+
+                    <td>{{item.member?.name}}</td>
+
+                    <td>{{item.member?.email}}</td>
+
+                    <td>{{item.checkIn | date:'short'}}</td>
+
+                    <td>
+
+                        {{ item.checkOut ?
+                        (item.checkOut | date:'short')
+                        : '--' }}
+
+                    </td>
+
+                    <td>
+
+                        {{ item.duration ?
+                        item.duration + ' min'
+                        : '--' }}
+
+                    </td>
+
+                    <td>
+
+                        <span class="active">
+
+                            {{ item.checkOut ? 'Completed' : 'Inside Gym' }}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="edit" (click)="editAttendance(item)">
+
+                            <i class="bi bi-pencil-fill"></i>
+
+                        </button>
+
+                        <button class="delete" (click)="deleteAttendance(item._id)">
+
+                            <i class="bi bi-trash-fill"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <div class="modal" *ngIf="showEditModal">
+
+        <div class="modal-content">
+
+            <h3>Update Attendance</h3>
+
+            <select [(ngModel)]="editData.status">
+
+                <option value="Present">Present</option>
+
+                <option value="Absent">Absent</option>
+
+            </select>
+
+            <div class="modal-buttons">
+
+                <button class="cancel-btn" (click)="showEditModal=false">
+
+                    Cancel
+
+                </button>
+
+                <button class="save-btn" (click)="updateAttendance()">
+
+                    Save
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

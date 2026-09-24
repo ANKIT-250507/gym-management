@@ -1,0 +1,105 @@
+<aside class="sidebar">
+
+  <div class="logo">
+    <div class="logo-icon">G</div>
+
+    <div>
+      <h2>GYM</h2>
+      <span>MEMBER</span>
+    </div>
+  </div>
+
+
+  <div class="menu-title">
+    MAIN MENU
+  </div>
+
+
+  <nav>
+
+    <a
+      routerLink="/member-dashboard"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+
+      <span class="icon">🏠</span>
+      <span>Dashboard</span>
+
+    </a>
+
+
+    <a
+      routerLink="/member-workout"
+      routerLinkActive="active">
+
+      <span class="icon">🏋️</span>
+      <span>Workout</span>
+
+    </a>
+
+
+    <a
+      routerLink="/member-diet"
+      routerLinkActive="active">
+
+      <span class="icon">🥗</span>
+      <span>Diet Plan</span>
+
+    </a>
+
+
+    <a
+      routerLink="/member-attendance"
+      routerLinkActive="active">
+
+      <span class="icon">📊</span>
+      <span>Attendance</span>
+
+    </a>
+
+
+    <a
+      routerLink="/member-bmi"
+      routerLinkActive="active">
+
+      <span class="icon">⚖️</span>
+      <span>BMI & Fitness</span>
+
+    </a>
+
+
+    <a
+      routerLink="/member-membership"
+      routerLinkActive="active">
+
+      <span class="icon">💳</span>
+      <span>Membership</span>
+
+    </a>
+
+
+    <a
+      routerLink="/member-notifications"
+      routerLinkActive="active">
+
+      <span class="icon">🔔</span>
+      <span>Notifications</span>
+
+    </a>
+
+  </nav>
+
+
+  <div class="sidebar-bottom">
+
+    <button (click)="logout()">
+
+      <span class="icon">↪</span>
+
+      <span>Logout</span>
+
+    </button>
+
+  </div>
+
+</aside>

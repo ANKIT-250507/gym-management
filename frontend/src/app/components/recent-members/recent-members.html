@@ -1,0 +1,141 @@
+<div class="table-card">
+
+    <!-- Header -->
+    <div class="table-header">
+
+        <div class="title-section">
+
+            <div class="title-icon">
+                <i class="bi bi-people-fill"></i>
+            </div>
+
+            <div>
+                <h3>Recent Members</h3>
+                <p>Latest registered gym members</p>
+            </div>
+
+        </div>
+
+        <button
+            class="view-btn"
+            routerLink="/members">
+
+            View All
+            <i class="bi bi-arrow-right"></i>
+
+        </button>
+
+    </div>
+
+
+    <!-- Loading -->
+    <div
+        class="loading"
+        *ngIf="loading">
+
+        <i class="bi bi-arrow-repeat"></i>
+        Loading members...
+
+    </div>
+
+
+    <!-- Table -->
+    <div
+        class="table-wrapper"
+        *ngIf="!loading && members.length > 0">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr
+                    *ngFor="let member of members">
+
+                    <!-- Name -->
+                    <td>
+
+                        <div class="member-info">
+
+                            <div class="avatar">
+                                {{ member.name?.charAt(0).toUpperCase() }}
+                            </div>
+
+                            <span class="member-name">
+                                {{ member.name }}
+                            </span>
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- Email -->
+                    <td>
+
+                        <span class="email">
+                            {{ member.email }}
+                        </span>
+
+                    </td>
+
+
+                    <!-- Role -->
+                    <td>
+
+                        <span class="role-badge">
+
+                            <i class="bi bi-person-fill"></i>
+
+                            {{ member.role }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- Status -->
+                    <td>
+
+                        <span class="active">
+
+                            <span class="status-dot"></span>
+
+                            Active
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- No Members -->
+    <div
+        class="no-data"
+        *ngIf="!loading && members.length === 0">
+
+        <i class="bi bi-people"></i>
+
+        <p>No members found</p>
+
+    </div>
+
+</div>

@@ -1,0 +1,58 @@
+.members-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.members-table thead {
+    background: #111827;
+    color: white;
+}
+
+.members-table th {
+    padding: 16px;
+    text-align: left;
+    font-size: 15px;
+}
+
+.members-table td {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.members-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f3f4f6;
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status.active {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.status.active i {
+    font-size: 7px;
+}
