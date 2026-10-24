@@ -74,17 +74,13 @@
 
                     <td>
 
-                        <button
-                            class="edit"
-                            (click)="editWorkout(item)">
+                        <button class="edit" (click)="editWorkout(item)">
 
                             <i class="bi bi-pencil-fill"></i>
 
                         </button>
 
-                        <button
-                            class="delete"
-                            (click)="deleteWorkout(item._id)">
+                        <button class="delete" (click)="deleteWorkout(item._id)">
 
                             <i class="bi bi-trash-fill"></i>
 
@@ -104,9 +100,7 @@
 
 <!-- Modal -->
 
-<div
-    class="modal"
-    *ngIf="showModal">
+<div class="modal" *ngIf="showModal">
 
     <div class="modal-content">
 
@@ -116,15 +110,19 @@
 
         </h3>
 
-        <input
-            type="text"
-            placeholder="Member Id"
-            [(ngModel)]="newWorkout.member">
+        <div class="form-group">
+            <label>Select Member *</label>
 
-        <input
-            type="text"
-            placeholder="Workout Name"
-            [(ngModel)]="newWorkout.workoutName">
+            <select name="member" [(ngModel)]="newWorkout.member" required>
+                <option value="">Select Member</option>
+
+                <option *ngFor="let member of members" [value]="member._id">
+                    {{ member.name }} — {{ member.email }}
+                </option>
+            </select>
+        </div>
+
+        <input type="text" placeholder="Workout Name" [(ngModel)]="newWorkout.workoutName">
 
         <select [(ngModel)]="newWorkout.day">
 
@@ -144,40 +142,23 @@
 
         </select>
 
-        <input
-            type="text"
-            placeholder="Exercise Name"
-            [(ngModel)]="newWorkout.exercises[0].exerciseName">
+        <input type="text" placeholder="Exercise Name" [(ngModel)]="newWorkout.exercises[0].exerciseName">
 
-        <input
-            type="number"
-            placeholder="Sets"
-            [(ngModel)]="newWorkout.exercises[0].sets">
+        <input type="number" placeholder="Sets" [(ngModel)]="newWorkout.exercises[0].sets">
 
-        <input
-            type="number"
-            placeholder="Reps"
-            [(ngModel)]="newWorkout.exercises[0].reps">
+        <input type="number" placeholder="Reps" [(ngModel)]="newWorkout.exercises[0].reps">
 
-        <input
-            type="number"
-            placeholder="Rest Time (Seconds)"
-            [(ngModel)]="newWorkout.exercises[0].restTime">
+        <input type="number" placeholder="Rest Time (Seconds)" [(ngModel)]="newWorkout.exercises[0].restTime">
 
         <div class="modal-buttons">
 
-            <button
-                class="cancel-btn"
-                (click)="showModal=false">
+            <button class="cancel-btn" (click)="showModal=false">
 
                 Cancel
 
             </button>
 
-            <button
-                type="button"
-                class="save-btn"
-                (click)="addWorkout()">
+            <button type="button" class="save-btn" (click)="addWorkout()">
 
                 {{editing ? 'Update' : 'Save'}}
 

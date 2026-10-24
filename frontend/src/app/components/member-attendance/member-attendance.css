@@ -1,0 +1,303 @@
+
+.attendance-page {
+  min-height: 100vh;
+  padding: 28px;
+  color: #e2e8f0;
+  background: #0f172a;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 28px;
+  font-weight: 750;
+}
+
+.page-header p,
+.checkin-info p,
+.history-header p {
+  color: #94a3b8;
+  margin: 7px 0 0;
+}
+
+.refresh-btn {
+  padding: 10px 15px;
+  background: #1e293b;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.checkin-card,
+.summary-card,
+.history-card {
+  background: #172235;
+  border: 1px solid #29374d;
+  border-radius: 16px;
+}
+
+.checkin-card {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.checkin-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.checkin-icon {
+  width: 55px;
+  height: 55px;
+  display: grid;
+  place-items: center;
+  background: #312e81;
+  color: #c7d2fe;
+  font-size: 25px;
+  border-radius: 14px;
+}
+
+.checkin-info h2,
+.history-header h2 {
+  color: #f8fafc;
+  font-size: 19px;
+  margin: 0;
+}
+
+.checkin-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.checkin-btn,
+.checkout-btn {
+  padding: 12px 17px;
+  border: none;
+  border-radius: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+}
+
+.checkin-btn {
+  background: #059669;
+}
+
+.checkout-btn {
+  background: #4f46e5;
+}
+
+.checkin-btn:disabled,
+.checkout-btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.summary-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 23px;
+}
+
+.summary-icon {
+  height: 50px;
+  width: 50px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  border-radius: 13px;
+}
+
+.summary-icon.green {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.summary-icon.red {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+
+.summary-icon.blue {
+  background: #1e3a8a;
+  color: #93c5fd;
+}
+
+.summary-card p {
+  margin: 0 0 7px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.summary-card h2 {
+  color: #f8fafc;
+  margin: 0;
+  font-size: 27px;
+}
+
+.history-card {
+  overflow: hidden;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 23px;
+}
+
+.record-count {
+  padding: 7px 11px;
+  background: #263449;
+  color: #cbd5e1;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+thead {
+  background: #111c2e;
+}
+
+th,
+td {
+  padding: 16px 23px;
+  text-align: left;
+  border-bottom: 1px solid #29374d;
+}
+
+th {
+  color: #94a3b8;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+td {
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+tbody tr:hover {
+  background: #1c2a40;
+}
+
+.status {
+  display: inline-block;
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status.present {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.status.absent {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+.empty-state {
+  padding: 45px 15px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.empty-state i {
+  font-size: 35px;
+}
+
+.empty-state h3 {
+  color: #e2e8f0;
+  margin: 12px 0 5px;
+}
+
+.loading {
+  padding: 25px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.message {
+  padding: 13px 16px;
+  border-radius: 9px;
+  margin-bottom: 18px;
+}
+
+.message.success {
+  background: #064e3b;
+  color: #a7f3d0;
+}
+
+.message.error {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+@media (max-width: 800px) {
+  .attendance-page {
+    padding: 17px;
+  }
+
+  .checkin-card,
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .checkin-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkin-actions button {
+    flex: 1;
+  }
+
+  .history-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

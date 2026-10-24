@@ -1,0 +1,435 @@
+
+.fitness-page {
+  min-height: 100vh;
+  padding: 28px;
+  color: #e2e8f0;
+  background: #0f172a;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  color: #f8fafc;
+  font-size: 29px;
+  font-weight: 750;
+  margin: 0;
+}
+
+.page-header p,
+.panel-heading p,
+.section-heading p {
+  color: #94a3b8;
+  margin: 7px 0 0;
+  font-size: 14px;
+}
+
+.header-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: #312e81;
+  color: #c7d2fe;
+  font-size: 28px;
+}
+
+.fitness-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.panel {
+  background: #172235;
+  border: 1px solid #29374d;
+  border-radius: 17px;
+  padding: 24px;
+  margin-bottom: 22px;
+}
+
+.fitness-grid .panel {
+  margin-bottom: 0;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 26px;
+}
+
+.panel-heading h2,
+.section-heading h2 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.panel-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #1e3a8a;
+  color: #93c5fd;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.panel-icon.purple {
+  background: #3b2160;
+  color: #d8b4fe;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #cbd5e1;
+  margin-bottom: 9px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  color: #f8fafc;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+}
+
+.form-group input:focus {
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, .12);
+}
+
+.form-group input::placeholder {
+  color: #64748b;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.calculate-btn,
+.reset-btn {
+  padding: 12px 17px;
+  border: none;
+  border-radius: 9px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.calculate-btn {
+  flex: 1;
+  background: #4f46e5;
+  color: white;
+}
+
+.calculate-btn:hover {
+  background: #4338ca;
+}
+
+.reset-btn {
+  background: #263449;
+  color: #cbd5e1;
+}
+
+.error-message {
+  color: #fca5a5;
+  font-size: 13px;
+  margin: 0;
+}
+
+.result-empty {
+  min-height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.empty-icon {
+  width: 70px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #263449;
+  color: #a5b4fc;
+  font-size: 30px;
+  margin-bottom: 17px;
+}
+
+.result-empty h3 {
+  color: #f1f5f9;
+  font-size: 17px;
+  margin: 0 0 8px;
+}
+
+.result-empty p {
+  color: #94a3b8;
+  max-width: 270px;
+  line-height: 1.6;
+  font-size: 13px;
+}
+
+.result-content {
+  text-align: center;
+  padding: 5px 0;
+}
+
+.bmi-number {
+  color: #a5b4fc;
+  font-size: 55px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.result-label {
+  color: #94a3b8;
+  margin: 5px 0 15px;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.category-badge.normal {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.category-badge.underweight {
+  background: #1e3a8a;
+  color: #bfdbfe;
+}
+
+.category-badge.overweight {
+  background: #78350f;
+  color: #fde68a;
+}
+
+.category-badge.obese {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+.bmi-scale {
+  position: relative;
+  margin: 42px 0 12px;
+}
+
+.scale-bar {
+  height: 12px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.scale-under {
+  width: 14%;
+  background: #60a5fa;
+}
+
+.scale-normal {
+  width: 26%;
+  background: #34d399;
+}
+
+.scale-over {
+  width: 20%;
+  background: #fbbf24;
+}
+
+.scale-obese {
+  width: 40%;
+  background: #f87171;
+}
+
+.scale-marker {
+  position: absolute;
+  top: -7px;
+  width: 5px;
+  height: 26px;
+  background: #fff;
+  border: 2px solid #0f172a;
+  border-radius: 5px;
+  transform: translateX(-50%);
+  transition: left .3s ease;
+}
+
+.scale-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  color: #94a3b8;
+  font-size: 10px;
+}
+
+.result-note {
+  margin-top: 25px;
+  padding: 13px;
+  background: #111c2e;
+  border-radius: 9px;
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.section-heading > i {
+  color: #a5b4fc;
+  font-size: 24px;
+}
+
+.measurement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.measurement-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 18px;
+  background: #111c2e;
+  border: 1px solid #29374d;
+  border-radius: 13px;
+}
+
+.measurement-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.measurement-icon.blue {
+  background: #1e3a8a;
+  color: #93c5fd;
+}
+
+.measurement-icon.green {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.measurement-icon.purple-bg {
+  background: #3b2160;
+  color: #d8b4fe;
+}
+
+.measurement-item p {
+  margin: 0 0 6px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.measurement-item h3 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 19px;
+}
+
+.suggestion-content {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  padding: 20px;
+  background: #111c2e;
+  border: 1px solid #29374d;
+  border-radius: 13px;
+}
+
+.suggestion-icon {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #064e3b;
+  color: #6ee7b7;
+  font-size: 21px;
+}
+
+.suggestion-content h3 {
+  color: #f8fafc;
+  font-size: 16px;
+  margin: 0 0 9px;
+}
+
+.suggestion-content p {
+  color: #aab8ca;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .fitness-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .measurement-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 550px) {
+  .fitness-page {
+    padding: 17px;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .scale-labels {
+    font-size: 8px;
+  }
+}

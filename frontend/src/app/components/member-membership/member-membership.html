@@ -1,0 +1,166 @@
+
+<div class="membership-page">
+
+  <div class="page-header">
+    <div>
+      <h1>My Membership</h1>
+      <p>View your gym plan, payment and membership validity.</p>
+    </div>
+
+    <button class="refresh-btn" (click)="refresh()">
+      <i class="bi bi-arrow-clockwise"></i>
+      Refresh
+    </button>
+  </div>
+
+  <div class="loading-card" *ngIf="loading">
+    <i class="bi bi-arrow-repeat"></i>
+    Loading your membership...
+  </div>
+
+  <div class="message error" *ngIf="!loading && errorMessage">
+    <i class="bi bi-exclamation-circle"></i>
+    {{ errorMessage }}
+    <button (click)="refresh()">Try Again</button>
+  </div>
+
+  <ng-container *ngIf="!loading && !errorMessage">
+
+    <div class="empty-card" *ngIf="!membership">
+      <div class="empty-icon">
+        <i class="bi bi-credit-card-2-front"></i>
+      </div>
+      <h2>No Membership Found</h2>
+      <p>You don't have a membership record yet. Please contact the gym administrator.</p>
+    </div>
+
+    <ng-container *ngIf="membership">
+
+      <section class="plan-card">
+        <div class="plan-top">
+          <div>
+            <span class="eyebrow">YOUR CURRENT PLAN</span>
+            <h2>{{ membership.planName || 'Gym Membership' }}</h2>
+            <p>{{ membership.duration || 0 }} month(s) membership</p>
+          </div>
+
+          <div class="plan-icon">
+            <i class="bi bi-award-fill"></i>
+          </div>
+        </div>
+
+        <div class="plan-bottom">
+          <div>
+            <span class="eyebrow">MEMBERSHIP FEE</span>
+            <h3>{{ membership.fees | currency:'INR':'symbol':'1.0-2' }}</h3>
+          </div>
+
+          <span class="status-badge"
+            [class.expired]="isExpired">
+            <i class="bi"
+              [ngClass]="isExpired ? 'bi-x-circle-fill' : 'bi-check-circle-fill'">
+            </i>
+            {{ membershipStatus }}
+          </span>
+        </div>
+      </section>
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <i class="bi bi-calendar-event"></i>
+          </div>
+          <p>Start Date</p>
+          <h3>
+            {{ membership.startDate ? (membership.startDate | date:'dd MMM yyyy') : 'Not available' }}
+          </h3>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon orange">
+            <i class="bi bi-calendar-x"></i>
+          </div>
+          <p>Expiry Date</p>
+          <h3>
+            {{ membership.expiryDate ? (membership.expiryDate | date:'dd MMM yyyy') : 'Not available' }}
+          </h3>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <i class="bi bi-hourglass-split"></i>
+          </div>
+          <p>Days Remaining</p>
+          <h3>{{ isExpired ? 0 : remainingDays }}</h3>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <i class="bi bi-wallet2"></i>
+          </div>
+          <p>Payment Status</p>
+          <h3>
+            <span class="payment-badge"
+              [class.paid]="paymentStatus === 'Paid'">
+              {{ paymentStatus }}
+            </span>
+          </h3>
+        </div>
+
+      </div>
+
+      <section class="details-card">
+        <div class="section-heading">
+          <h2>Membership Details</h2>
+          <i class="bi bi-receipt"></i>
+        </div>
+
+        <div class="detail-row">
+          <span>Plan Name</span>
+          <strong>{{ membership.planName || '-' }}</strong>
+        </div>
+
+        <div class="detail-row">
+          <span>Duration</span>
+          <strong>{{ membership.duration || 0 }} month(s)</strong>
+        </div>
+
+        <div class="detail-row">
+          <span>Total Fees</span>
+          <strong>{{ membership.fees | currency:'INR':'symbol':'1.0-2' }}</strong>
+        </div>
+
+        <div class="detail-row">
+          <span>Payment</span>
+          <strong>{{ paymentStatus }}</strong>
+        </div>
+
+        <div class="detail-row">
+          <span>Membership Status</span>
+          <strong [class.expired-text]="isExpired">
+            {{ membershipStatus }}
+          </strong>
+        </div>
+      </section>
+
+      <div class="notice" *ngIf="isExpired">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <div>
+          <strong>Your membership has expired</strong>
+          <p>Please contact the gym administrator to renew your membership.</p>
+        </div>
+      </div>
+
+      <div class="notice active-notice" *ngIf="!isExpired && remainingDays <= 7">
+        <i class="bi bi-bell-fill"></i>
+        <div>
+          <strong>Membership expiry reminder</strong>
+          <p>Your membership expires in {{ remainingDays }} day(s). Contact the gym if you need to renew it.</p>
+        </div>
+      </div>
+
+    </ng-container>
+  </ng-container>
+
+</div>

@@ -42,7 +42,7 @@ export class DietManagement implements OnInit {
   constructor(
     private dietService: DietService,
     private membershipService: MembershipService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -82,26 +82,21 @@ export class DietManagement implements OnInit {
   // ===============================
 
   loadMembers(): void {
-
     this.membershipService.getMembers().subscribe({
-
       next: (res: any) => {
+        const list = Array.isArray(res)
+          ? res
+          : res.members || res.users || res.data || [];
 
-        this.members =
-          res.members ||
-          res.users ||
-          [];
+        this.members = list;
 
+        console.log('Diet members:', this.members);
       },
-
       error: (err) => {
-
-        console.error('Members Error:', err);
-
+        console.error('Diet members error:', err);
+        this.members = [];
       }
-
     });
-
   }
 
 

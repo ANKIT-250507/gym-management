@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WorkoutService } from '../../services/workout.service';
+import { MembershipService } from '../../services/membership.service';
 
 @Component({
   selector: 'app-workout-management',
@@ -14,6 +15,10 @@ import { WorkoutService } from '../../services/workout.service';
   styleUrl: './workout-management.css'
 })
 export class WorkoutManagement implements OnInit {
+
+  members: any[] = [];
+  membersLoading = false;
+  membersError = '';
 
   workouts: any[] = [];
 
@@ -52,13 +57,37 @@ export class WorkoutManagement implements OnInit {
   };
 
   constructor(
-    private workoutService: WorkoutService
+    private workoutService: WorkoutService,
+    private membershipService: MembershipService
   ) { }
 
   ngOnInit(): void {
-
     this.loadWorkouts();
+    this.loadMembers();
+  }
 
+  loadMembers(): void {
+    this.membersLoading = true;
+    this.membersError = '';
+
+    this.membershipService.getMembers().subscribe({
+      next: (res: any) => {
+        const list = Array.isArray(res)
+          ? res
+          : res.members || res.users || res.data || [];
+
+        this.members = list.filter(
+          (member: any) => member.role === 'member'
+        );
+
+        this.membersLoading = false;
+      },
+      error: (err) => {
+        console.error('Members load error:', err);
+        this.membersError = 'Members load nahi hue. Please check the API.';
+        this.membersLoading = false;
+      }
+    });
   }
 
   loadWorkouts() {

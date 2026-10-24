@@ -1,0 +1,108 @@
+<div class="diet-page">
+
+    <!-- Header -->
+    <div class="page-header">
+        <div>
+            <h1>My Diet Plan</h1>
+            <p>Your personalized nutrition plan</p>
+        </div>
+
+        <div class="header-icon">
+            🥗
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="diet-banner">
+        <div>
+            <h2>Stay Healthy, Stay Strong 💪</h2>
+            <p>Follow your assigned diet plan regularly.</p>
+        </div>
+
+        <div class="banner-emoji">
+            🍎
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading" *ngIf="loading">
+        Loading your diet plan...
+    </div>
+
+    <!-- Error -->
+    <div class="error-message" *ngIf="!loading && errorMessage">
+        {{ errorMessage }}
+    </div>
+
+    <!-- Diet Cards -->
+    <div class="diet-grid" *ngIf="!loading && !errorMessage && dietPlans.length > 0">
+
+        <div class="diet-card" *ngFor="let diet of dietPlans">
+
+            <div class="card-icon">
+                {{ getMealIcon(diet.mealType) }}
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-heading">
+                    <h3>{{ diet.mealType || 'Meal Plan' }}</h3>
+
+                    <span class="day">
+                        {{ diet.day || 'Daily' }}
+                    </span>
+                </div>
+
+                <p class="food-items">
+                    {{ diet.foodItems || 'No food items added' }}
+                </p>
+
+                <div class="nutrition">
+
+                    <span>
+                        🔥 {{ diet.calories || 0 }} Calories
+                    </span>
+
+                    <span>
+                        💪 {{ diet.protein || 0 }}g Protein
+                    </span>
+
+                    <span>
+                        🍚 {{ diet.carbs || 0 }}g Carbs
+                    </span>
+
+                    <span>
+                        🥑 {{ diet.fats || 0 }}g Fats
+                    </span>
+
+                </div>
+
+                <p class="notes" *ngIf="diet.notes">
+                    <strong>Notes:</strong> {{ diet.notes }}
+                </p>
+
+                <p class="trainer" *ngIf="diet.trainer">
+                    Assigned by: {{ diet.trainer.name }}
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!loading && !errorMessage && dietPlans.length === 0">
+
+        <div class="empty-icon">
+            🥗
+        </div>
+
+        <h2>No Diet Plan Assigned</h2>
+
+        <p>
+            Your trainer has not assigned a diet plan yet.
+        </p>
+
+    </div>
+
+</div>

@@ -1,156 +1,177 @@
-<div class="product-container">
+ <div class="product-container">
 
-    <div class="header">
+  <div class="page-header">
+    <div>
+      <span class="eyebrow">GYM INVENTORY</span>
+      <h2>Products <span>Management</span></h2>
+      <p>Manage your gym products, pricing and stock.</p>
+    </div>
 
+    <button class="add-btn" (click)="openAddModal()">
+      <i class="bi bi-plus-lg"></i>
+      Add Product
+    </button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon products-icon"><i class="bi bi-box-seam"></i></div>
+      <div><p>Total Products</p><h3>{{ products.length }}</h3></div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon stock-icon"><i class="bi bi-check2-circle"></i></div>
+      <div><p>In Stock</p><h3>{{ inStockCount }}</h3></div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon low-icon"><i class="bi bi-exclamation-triangle"></i></div>
+      <div><p>Low Stock</p><h3>{{ lowStockCount }}</h3></div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon value-icon"><i class="bi bi-currency-rupee"></i></div>
+      <div><p>Inventory Value</p><h3>₹{{ inventoryValue | number:'1.0-0' }}</h3></div>
+    </div>
+  </div>
+
+  <div class="products-panel">
+    <div class="panel-header">
+      <div>
+        <h3>All Products</h3>
+        <p>View and manage your inventory</p>
+      </div>
+
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input
+          type="text"
+          placeholder="Search products..."
+          [(ngModel)]="searchTerm">
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="state-message">
+      <i class="bi bi-arrow-repeat spin"></i>
+      <p>Loading products...</p>
+    </div>
+
+    <div class="table-box" *ngIf="!loading">
+      <table>
+        <thead>
+          <tr>
+            <th>PRODUCT</th>
+            <th>CATEGORY</th>
+            <th>PRICE</th>
+            <th>STOCK STATUS</th>
+            <th>DESCRIPTION</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let product of filteredProducts">
+            <td>
+              <div class="product-name">
+                <div class="product-icon"><i class="bi bi-box-seam"></i></div>
+                <div>
+                  <strong>{{ product.name }}</strong>
+                  <small>Gym product</small>
+                </div>
+              </div>
+            </td>
+
+            <td><span class="category-badge">{{ product.category || 'General' }}</span></td>
+
+            <td class="price">₹{{ product.price | number:'1.0-2' }}</td>
+
+            <td>
+              <span
+                class="stock-badge"
+                [ngClass]="product.stock <= 0 ? 'out-stock' : product.stock <= 5 ? 'low-stock' : 'in-stock'">
+                <span class="status-dot"></span>
+                {{ product.stock <= 0 ? 'Out of stock' : product.stock <= 5 ? 'Low stock' : 'In stock' }}
+                <small>({{ product.stock }})</small>
+              </span>
+            </td>
+
+            <td><span class="description">{{ product.description || '—' }}</span></td>
+
+            <td>
+              <div class="action-buttons">
+                <button class="icon-btn edit" title="Edit product" (click)="editProduct(product)">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button class="icon-btn delete" title="Delete product" (click)="deleteProduct(product._id)">
+                  <i class="bi bi-trash3"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngIf="filteredProducts.length === 0">
+            <td colspan="6">
+              <div class="empty-state">
+                <i class="bi bi-box-seam"></i>
+                <h3>No products found</h3>
+                <p>{{ searchTerm ? 'Try another search term.' : 'Add your first gym product to get started.' }}</p>
+                <button *ngIf="!searchTerm" class="add-btn" (click)="openAddModal()">Add Product</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="product-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
         <div>
+          <span class="eyebrow">{{ editing ? 'UPDATE INVENTORY' : 'NEW INVENTORY' }}</span>
+          <h3>{{ editing ? 'Edit Product' : 'Add New Product' }}</h3>
+          <p>Enter the product details below.</p>
+        </div>
+        <button class="close-btn" type="button" (click)="closeModal()"><i class="bi bi-x-lg"></i></button>
+      </div>
 
-            <h2>Products Management</h2>
+      <form (ngSubmit)="addProduct()" #productForm="ngForm">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Product Name *</label>
+            <input type="text" name="name" placeholder="e.g. Whey Protein" [(ngModel)]="newProduct.name" required>
+          </div>
 
-            <p>Manage Gym Products</p>
+          <div class="form-group">
+            <label>Category *</label>
+            <input type="text" name="category" placeholder="e.g. Supplements" [(ngModel)]="newProduct.category" required>
+          </div>
 
+          <div class="form-group">
+            <label>Price (₹) *</label>
+            <input type="number" name="price" placeholder="0.00" min="0" [(ngModel)]="newProduct.price" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Stock Quantity *</label>
+            <input type="number" name="stock" placeholder="Enter available quantity" min="0" step="1" [(ngModel)]="newProduct.stock" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Description</label>
+            <textarea name="description" rows="3" placeholder="Short product description..." [(ngModel)]="newProduct.description"></textarea>
+          </div>
         </div>
 
-        <button class="add-btn" (click)="showModal=true">
-
-            <i class="bi bi-plus-circle"></i>
-
-            Add Product
-
-        </button>
-
-    </div>
-
-    <div class="table-box">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr *ngFor="let product of products">
-
-                    <td>{{product.name}}</td>
-
-                    <td>{{product.category}}</td>
-
-                    <td>₹{{product.price}}</td>
-
-                    <td>
-
-                        <span
-                            [style.color]="product.stock<=5 ? 'red':'green'">
-
-                            {{product.stock}}
-
-                        </span>
-
-                    </td>
-
-                    <td>{{product.description}}</td>
-
-                    <td>
-
-                        <button
-                            class="edit"
-                            (click)="editProduct(product)">
-
-                            <i class="bi bi-pencil-fill"></i>
-
-                        </button>
-
-                        <button
-                            class="delete"
-                            (click)="deleteProduct(product._id)">
-
-                            <i class="bi bi-trash-fill"></i>
-
-                        </button>
-
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-    <div
-        class="modal"
-        *ngIf="showModal">
-
-        <div class="modal-content">
-
-            <h3>
-
-                {{editing ?
-                'Update Product' :
-                'Add Product'}}
-
-            </h3>
-
-            <input
-                type="text"
-                placeholder="Product Name"
-                [(ngModel)]="newProduct.name">
-
-            <input
-                type="text"
-                placeholder="Category"
-                [(ngModel)]="newProduct.category">
-
-            <input
-                type="number"
-                placeholder="Price"
-                [(ngModel)]="newProduct.price">
-
-            <input
-                type="number"
-                placeholder="Stock"
-                [(ngModel)]="newProduct.stock">
-
-            <textarea
-                placeholder="Description"
-                [(ngModel)]="newProduct.description">
-            </textarea>
-
-            <div class="modal-buttons">
-
-                <button
-                    class="cancel-btn"
-                    (click)="showModal=false">
-
-                    Cancel
-
-                </button>
-
-                <button
-                    class="save-btn"
-                    (click)="addProduct()">
-
-                    {{editing ? 'Update' : 'Save'}}
-
-                </button>
-
-            </div>
-
+        <div class="modal-footer">
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="save-btn" [disabled]="productForm.invalid">
+            <i class="bi" [ngClass]="editing ? 'bi-check2-circle' : 'bi-plus-circle'"></i>
+            {{ editing ? 'Update Product' : 'Save Product' }}
+          </button>
         </div>
-
+      </form>
     </div>
+  </div>
 
 </div>

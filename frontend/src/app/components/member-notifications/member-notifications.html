@@ -1,0 +1,87 @@
+
+<div class="notifications-page">
+
+  <div class="page-header">
+    <div>
+      <h1><i class="bi bi-bell-fill"></i> My Notifications</h1>
+      <p>Stay updated with gym announcements and important alerts.</p>
+    </div>
+
+    <button class="refresh-btn" (click)="loadNotifications()">
+      <i class="bi bi-arrow-clockwise"></i> Refresh
+    </button>
+  </div>
+
+  <div class="summary-card">
+    <div class="summary-icon">
+      <i class="bi bi-bell"></i>
+    </div>
+    <div>
+      <h3>{{ notifications.length }}</h3>
+      <p>Total Notifications</p>
+    </div>
+
+    <div class="unread-count">
+      {{ unreadCount }} unread
+    </div>
+  </div>
+
+  <div class="message-card" *ngIf="loading">
+    <i class="bi bi-arrow-repeat"></i>
+    Loading notifications...
+  </div>
+
+  <div class="error-card" *ngIf="!loading && errorMessage">
+    <i class="bi bi-exclamation-circle"></i>
+    {{ errorMessage }}
+
+    <button (click)="loadNotifications()">Try Again</button>
+  </div>
+
+  <div
+    class="empty-card"
+    *ngIf="!loading && !errorMessage && notifications.length === 0"
+  >
+    <i class="bi bi-bell-slash"></i>
+    <h3>No notifications yet</h3>
+    <p>Gym announcements and alerts will appear here.</p>
+  </div>
+
+  <div
+    class="notification-list"
+    *ngIf="!loading && !errorMessage && notifications.length > 0"
+  >
+    <div class="notification-card" *ngFor="let notification of notifications">
+
+      <div class="notification-icon">
+        <i class="bi bi-bell-fill"></i>
+      </div>
+
+      <div class="notification-content">
+        <div class="notification-heading">
+          <h3>{{ getTitle(notification) }}</h3>
+
+          <span
+            class="status-badge"
+            [class.unread]="notification.isRead === false || notification.isRead == null"
+          >
+            {{
+              notification.isRead === false || notification.isRead == null
+                ? 'New'
+                : 'Read'
+            }}
+          </span>
+        </div>
+
+        <p>{{ getMessage(notification) }}</p>
+
+        <small *ngIf="getDate(notification)">
+          <i class="bi bi-clock"></i>
+          {{ getDate(notification) | date:'medium' }}
+        </small>
+      </div>
+
+    </div>
+  </div>
+
+</div>

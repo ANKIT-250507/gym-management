@@ -62,7 +62,7 @@ router.get(
 router.get(
     "/",
     protect,
-    authorize("admin"),
+    authorize("admin", "trainer"),
     getAllAttendance
 );
 

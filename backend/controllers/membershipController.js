@@ -296,6 +296,30 @@ const getMembershipAlerts = async (req, res) => {
 
 };
 
+// Member: Get My Membership
+const getMyMembership = async (req, res) => {
+    try {
+        const Membership = require("../models/Membership");
+
+        const membership = await Membership.find({
+            member: req.user.id
+        }).sort({ createdAt: -1 });
+
+        res.status(200).json({
+            success: true,
+            membership
+        });
+    } catch (error) {
+        console.error("Get My Membership Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch membership"
+        });
+    }
+};
+
+
 module.exports = {
     createMembership,
     getAllMemberships,
@@ -303,5 +327,6 @@ module.exports = {
     updateMembership,
     deleteMembership,
     getExpiredMemberships,
-    getMembershipAlerts
+    getMembershipAlerts,
+    getMyMembership
 };

@@ -1,0 +1,144 @@
+
+<div class="attendance-page">
+
+  <div class="page-header">
+    <div>
+      <h1>My Attendance</h1>
+      <p>Track your gym visits and daily attendance.</p>
+    </div>
+
+    <button class="refresh-btn" (click)="refreshAttendance()">
+      <i class="bi bi-arrow-clockwise"></i> Refresh
+    </button>
+  </div>
+
+  <div class="message success" *ngIf="successMessage">
+    <i class="bi bi-check-circle"></i>
+    {{ successMessage }}
+  </div>
+
+  <div class="message error" *ngIf="errorMessage">
+    <i class="bi bi-exclamation-circle"></i>
+    {{ errorMessage }}
+  </div>
+
+  <div class="checkin-card">
+    <div class="checkin-info">
+      <div class="checkin-icon">
+        <i class="bi bi-calendar-check"></i>
+      </div>
+      <div>
+        <h2>Today's Attendance</h2>
+        <p>{{ todayAttendance?.date ? (todayAttendance.date | date:'EEEE, dd MMMM yyyy') : ('' | date:'EEEE, dd MMMM yyyy') }}</p>
+      </div>
+    </div>
+
+    <div class="checkin-actions">
+      <button
+        class="checkin-btn"
+        [disabled]="hasCheckedInToday || loading"
+        (click)="checkIn()">
+        <i class="bi bi-box-arrow-in-right"></i>
+        {{ hasCheckedInToday ? 'Checked In' : 'Check In' }}
+      </button>
+
+      <button
+        class="checkout-btn"
+        [disabled]="!hasCheckedInToday || hasCheckedOutToday || loading"
+        (click)="checkOut()">
+        <i class="bi bi-box-arrow-right"></i>
+        {{ hasCheckedOutToday ? 'Checked Out' : 'Check Out' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-icon green">
+        <i class="bi bi-person-check-fill"></i>
+      </div>
+      <div>
+        <p>Present Days</p>
+        <h2>{{ totalPresent }}</h2>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-icon red">
+        <i class="bi bi-person-x-fill"></i>
+      </div>
+      <div>
+        <p>Absent Days</p>
+        <h2>{{ totalAbsent }}</h2>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-icon blue">
+        <i class="bi bi-graph-up-arrow"></i>
+      </div>
+      <div>
+        <p>Attendance Rate</p>
+        <h2>{{ attendancePercentage }}%</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="history-card">
+    <div class="history-header">
+      <div>
+        <h2>Attendance History</h2>
+        <p>Your personal gym attendance records.</p>
+      </div>
+      <span class="record-count">{{ attendance.length }} Records</span>
+    </div>
+
+    <div class="loading" *ngIf="loading">
+      <i class="bi bi-arrow-repeat"></i> Loading attendance...
+    </div>
+
+    <div class="table-responsive" *ngIf="!loading">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Check In</th>
+            <th>Check Out</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of attendance">
+            <td>{{ item.date | date:'dd MMM yyyy' }}</td>
+
+            <td>
+              {{ item.checkIn ? (item.checkIn | date:'hh:mm a') : '--' }}
+            </td>
+
+            <td>
+              {{ item.checkOut ? (item.checkOut | date:'hh:mm a') : '--' }}
+            </td>
+
+            <td>
+              <span class="status"
+                [class.present]="item.status?.toLowerCase() === 'present'"
+                [class.absent]="item.status?.toLowerCase() === 'absent'">
+                {{ item.status || (item.checkIn ? 'Present' : 'Pending') }}
+              </span>
+            </td>
+          </tr>
+
+          <tr *ngIf="attendance.length === 0">
+            <td colspan="4" class="empty-state">
+              <i class="bi bi-calendar2-x"></i>
+              <h3>No attendance records yet</h3>
+              <p>Your gym visits will appear here after check-in.</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

@@ -19,6 +19,12 @@ import { Settings } from './components/settings/settings';
 import { MemberDashboard } from './components/member-dashboard/member-dashboard';
 import { MemberWorkout } from './components/member-workout/member-workout';
 import { MemberDiet } from './components/member-diet/member-diet';
+import { MemberAttendance } from './components/member-attendance/member-attendance';
+import { MemberFitness } from './components/member-fitness/member-fitness';
+import { MemberMembership } from './components/member-membership/member-membership';
+import { MemberNotifications } from './components/member-notifications/member-notifications';
+import { MemberManagement } from './components/member-management/member-management';
+import { MemberProducts } from './components/member-products/member-products';
 
 export const routes: Routes = [
   {
@@ -44,6 +50,10 @@ export const routes: Routes = [
   {
     path: 'member',
     component: Member
+  },
+  {
+    path: 'members',
+    component: MemberManagement
   },
   {
     path: 'attendance',
@@ -91,13 +101,40 @@ export const routes: Routes = [
   },
 
   {
-  path: 'member-diet',
-  component: MemberDiet
-},
+    path: 'member-diet',
+    component: MemberDiet
+  },
+
+  {
+    path: 'member-attendance',
+    component: MemberAttendance
+  },
+
+  {
+    path: 'member-fitness',
+    component: MemberFitness
+  },
+
+  {
+    path: 'member-membership',
+    component: MemberMembership
+  },
+
+  {
+    path: 'member-notifications',
+    component: MemberNotifications
+  },
+
+  {
+    path: 'member-products',
+    component: MemberProducts
+  },
 
   {
     path: '**',
     component: NotFound
   }
+
+
 
 ];

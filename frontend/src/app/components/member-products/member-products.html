@@ -1,0 +1,81 @@
+<div class="shop-page">
+  <header class="shop-header">
+    <div>
+      <span class="eyebrow">GYM STORE</span>
+      <h1>Fitness <span>Products</span></h1>
+      <p>Fuel your fitness journey with gym essentials.</p>
+    </div>
+
+    <div class="product-count">
+      <i class="bi bi-bag-check"></i>
+      {{ products.length }} Products
+    </div>
+  </header>
+
+  <div class="search-bar">
+    <i class="bi bi-search"></i>
+    <input
+      type="text"
+      placeholder="Search protein, supplements, accessories..."
+      [(ngModel)]="searchTerm">
+  </div>
+
+  <div *ngIf="loading" class="message">
+    <i class="bi bi-arrow-repeat"></i>
+    Loading products...
+  </div>
+
+  <div *ngIf="!loading && errorMessage" class="message error">
+    {{ errorMessage }}
+    <button (click)="loadProducts()">Try Again</button>
+  </div>
+
+  <div *ngIf="!loading && !errorMessage && filteredProducts.length"
+       class="product-grid">
+
+    <article class="product-card" *ngFor="let product of filteredProducts">
+      <div class="product-visual">
+        <span class="category">{{ product.category || 'Gym Essential' }}</span>
+        <i class="bi bi-box-seam product-symbol"></i>
+
+        <span class="stock-label"
+          [ngClass]="{
+            'available': product.stock > 5,
+            'limited': product.stock > 0 && product.stock <= 5,
+            'unavailable': product.stock <= 0
+          }">
+          {{ product.stock <= 0 ? 'Out of Stock' :
+             product.stock <= 5 ? 'Limited Stock' : 'Available' }}
+        </span>
+      </div>
+
+      <div class="product-info">
+        <h2>{{ product.name }}</h2>
+        <p class="description">
+          {{ product.description || 'A gym essential for your fitness routine.' }}
+        </p>
+
+        <div class="product-footer">
+          <div class="price">
+            <small>PRICE</small>
+            <strong>₹{{ product.price | number:'1.0-2' }}</strong>
+          </div>
+
+          <span class="pickup">
+            <i class="bi bi-shop"></i> Gym pickup
+          </span>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div
+    *ngIf="!loading && !errorMessage && filteredProducts.length === 0"
+    class="empty-state">
+    <i class="bi bi-search"></i>
+    <h2>No products found</h2>
+    <p>
+      {{ searchTerm ? 'Try another search.' : 'Gym products will appear here when available.' }}
+    </p>
+  </div>
+</div>

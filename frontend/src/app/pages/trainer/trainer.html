@@ -1,1 +1,201 @@
-<p>trainer works!</p>
+<div class="trainer-layout">
+    <app-trainer-sidebar></app-trainer-sidebar>
+
+    <main class="trainer-main">
+
+        <div class="trainer-page">
+            <header class="page-header">
+                <div>
+                    <p class="eyebrow">GYM MANAGEMENT SYSTEM</p>
+                    <h1>Trainer Dashboard</h1>
+                    <p class="subtitle">Manage your members and workout plans.</p>
+                </div>
+
+                <button class="primary-btn" (click)="openForm()">
+                    + Assign Workout
+                </button>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon members-icon">👥</div>
+                    <p>Total Members</p>
+                    <h2>{{ members.length }}</h2>
+                    <span>Registered gym members</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon workout-icon">🏋️</div>
+                    <p>Total Workouts</p>
+                    <h2>{{ workouts.length }}</h2>
+                    <span>Assigned workout plans</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon pending-icon">⏳</div>
+                    <p>Pending Workouts</p>
+                    <h2>{{ getPendingCount() }}</h2>
+                    <span>Awaiting completion</span>
+                </div>
+            </div>
+
+            <div class="message success" *ngIf="message">{{ message }}</div>
+            <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+            <section class="panel" *ngIf="showForm">
+                <div class="panel-heading">
+                    <div>
+                        <h2>Assign New Workout</h2>
+                        <p>Select a member and enter the workout details.</p>
+                    </div>
+                    <button class="close-btn" (click)="cancelForm()">✕</button>
+                </div>
+
+                <form (ngSubmit)="createWorkout()">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label>Select Member</label>
+                            <select name="member" [(ngModel)]="form.member" required>
+                                <option value="">Choose a member</option>
+                                <option *ngFor="let member of members" [value]="member._id">
+                                    {{ member.name }} — {{ member.email }}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label>Workout Name</label>
+                            <input name="workoutName" [(ngModel)]="form.workoutName" placeholder="e.g. Muscle Building"
+                                required />
+                        </div>
+
+                        <div class="field">
+                            <label>Workout Day</label>
+                            <select name="day" [(ngModel)]="form.day">
+                                <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h3 class="exercise-title">Exercises</h3>
+
+                    <div class="exercise-row" *ngFor="let exercise of form.exercises; let i = index">
+                        <div class="field">
+                            <label>Exercise Name</label>
+                            <input [name]="'exerciseName' + i" [(ngModel)]="exercise.exerciseName"
+                                placeholder="e.g. Bench Press" required />
+                        </div>
+
+                        <div class="field">
+                            <label>Sets</label>
+                            <input type="number" [name]="'sets' + i" [(ngModel)]="exercise.sets" min="1" required />
+                        </div>
+
+                        <div class="field">
+                            <label>Reps</label>
+                            <input type="number" [name]="'reps' + i" [(ngModel)]="exercise.reps" min="1" required />
+                        </div>
+
+                        <div class="field">
+                            <label>Rest (sec)</label>
+                            <input type="number" [name]="'rest' + i" [(ngModel)]="exercise.restTime" min="0" required />
+                        </div>
+
+                        <button type="button" class="remove-btn" (click)="removeExercise(i)"
+                            [disabled]="form.exercises.length === 1">Remove</button>
+                    </div>
+
+                    <button type="button" class="secondary-btn" (click)="addExercise()">
+                        + Add Exercise
+                    </button>
+
+                    <div class="form-actions">
+                        <button type="button" class="secondary-btn" (click)="cancelForm()">Cancel</button>
+                        <button type="submit" class="primary-btn" [disabled]="submitting">
+                            {{ submitting ? 'Assigning...' : 'Assign Workout' }}
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h2>My Members</h2>
+                        <p>Members registered in the gym.</p>
+                    </div>
+                    <button class="secondary-btn" (click)="loadMembers()">Refresh</button>
+                </div>
+
+                <p class="loading" *ngIf="loadingMembers">Loading members...</p>
+                <p class="error-text" *ngIf="membersError">{{ membersError }}</p>
+
+                <div class="table-wrap" *ngIf="!loadingMembers && !membersError">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Goal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let member of members">
+                                <td>{{ member.name }}</td>
+                                <td>{{ member.email }}</td>
+                                <td>{{ member.phone || '—' }}</td>
+                                <td><span class="goal-tag">{{ member.goal || 'General Fitness' }}</span></td>
+                            </tr>
+                            <tr *ngIf="members.length === 0">
+                                <td colspan="4" class="empty">No members found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h2>Workout Assignments</h2>
+                        <p>Recently assigned workout plans.</p>
+                    </div>
+                    <button class="secondary-btn" (click)="loadWorkouts()">Refresh</button>
+                </div>
+
+                <p class="loading" *ngIf="loadingWorkouts">Loading workouts...</p>
+                <p class="error-text" *ngIf="workoutsError">{{ workoutsError }}</p>
+
+                <div class="table-wrap" *ngIf="!loadingWorkouts && !workoutsError">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Workout</th>
+                                <th>Member</th>
+                                <th>Day</th>
+                                <th>Exercises</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let workout of workouts">
+                                <td>{{ workout.workoutName }}</td>
+                                <td>{{ getMemberName(workout.member) }}</td>
+                                <td>{{ workout.day }}</td>
+                                <td>{{ workout.exercises?.length || 0 }}</td>
+                                <td><span class="status-tag" [class.completed]="workout.status === 'Completed'">
+                                        {{ workout.status }}
+                                    </span></td>
+                            </tr>
+                            <tr *ngIf="workouts.length === 0">
+                                <td colspan="5" class="empty">No workouts assigned yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+    </main>
+</div>

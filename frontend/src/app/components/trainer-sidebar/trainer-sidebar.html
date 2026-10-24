@@ -1,0 +1,52 @@
+
+<aside class="trainer-sidebar">
+
+  <div class="brand">
+    <div class="brand-icon">G</div>
+    <div>
+      <h2>GYM</h2>
+      <span>TRAINER PANEL</span>
+    </div>
+  </div>
+
+  <div class="menu-title">MAIN MENU</div>
+
+  <nav class="sidebar-menu">
+
+    <a routerLink="/trainer"
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{ exact: true }">
+      <span class="menu-icon">🏠</span>
+      <span>Dashboard</span>
+    </a>
+
+    <a routerLink="/trainers" routerLinkActive="active">
+      <span class="menu-icon">👥</span>
+      <span>My Members</span>
+    </a>
+
+    <a routerLink="/workout" routerLinkActive="active">
+      <span class="menu-icon">🏋️</span>
+      <span>Workout Management</span>
+    </a>
+
+    <a routerLink="/diet" routerLinkActive="active">
+      <span class="menu-icon">🥗</span>
+      <span>Diet Plans</span>
+    </a>
+
+    <a routerLink="/attendance" routerLinkActive="active">
+      <span class="menu-icon">📅</span>
+      <span>Attendance</span>
+    </a>
+
+  </nav>
+
+  <div class="sidebar-bottom">
+    <button type="button" (click)="logout()">
+      <span class="menu-icon">↪</span>
+      <span>Logout</span>
+    </button>
+  </div>
+
+</aside>

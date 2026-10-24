@@ -1,0 +1,217 @@
+
+<div class="fitness-page">
+
+  <div class="page-header">
+    <div>
+      <h1>BMI & Fitness</h1>
+      <p>Track your body measurements and fitness goals.</p>
+    </div>
+
+    <div class="header-icon">
+      <i class="bi bi-heart-pulse-fill"></i>
+    </div>
+  </div>
+
+  <div class="fitness-grid">
+
+    <!-- BMI Calculator -->
+    <section class="panel calculator-panel">
+      <div class="panel-heading">
+        <div class="panel-icon">
+          <i class="bi bi-calculator"></i>
+        </div>
+        <div>
+          <h2>BMI Calculator</h2>
+          <p>Enter your current measurements.</p>
+        </div>
+      </div>
+
+      <form (ngSubmit)="calculateBMI()">
+        <div class="form-group">
+          <label for="height">Height (cm)</label>
+          <input
+            id="height"
+            type="number"
+            name="height"
+            [(ngModel)]="height"
+            min="1"
+            max="300"
+            placeholder="e.g. 170"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="weight">Weight (kg)</label>
+          <input
+            id="weight"
+            type="number"
+            name="weight"
+            [(ngModel)]="weight"
+            min="1"
+            max="500"
+            step="0.1"
+            placeholder="e.g. 65"
+            required
+          />
+        </div>
+
+        <p class="error-message" *ngIf="errorMessage">
+          <i class="bi bi-exclamation-circle"></i>
+          {{ errorMessage }}
+        </p>
+
+        <div class="form-actions">
+          <button type="submit" class="calculate-btn">
+            <i class="bi bi-lightning-charge-fill"></i>
+            Calculate BMI
+          </button>
+
+          <button type="button" class="reset-btn" (click)="reset()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- BMI Result -->
+    <section class="panel result-panel">
+      <div class="panel-heading">
+        <div class="panel-icon purple">
+          <i class="bi bi-speedometer2"></i>
+        </div>
+        <div>
+          <h2>Your BMI Result</h2>
+          <p>Your calculated body mass index.</p>
+        </div>
+      </div>
+
+      <div class="result-empty" *ngIf="bmi === null">
+        <div class="empty-icon">
+          <i class="bi bi-activity"></i>
+        </div>
+        <h3>Ready to calculate?</h3>
+        <p>Enter your height and weight to see your BMI result here.</p>
+      </div>
+
+      <div class="result-content" *ngIf="bmi !== null">
+        <div class="bmi-number">{{ bmi }}</div>
+        <p class="result-label">Your BMI</p>
+
+        <span class="category-badge"
+          [class.normal]="category === 'Normal Weight'"
+          [class.underweight]="category === 'Underweight'"
+          [class.overweight]="category === 'Overweight'"
+          [class.obese]="category === 'Obesity Range'">
+          {{ category }}
+        </span>
+
+        <div class="bmi-scale">
+          <div class="scale-bar">
+            <span class="scale-under"></span>
+            <span class="scale-normal"></span>
+            <span class="scale-over"></span>
+            <span class="scale-obese"></span>
+          </div>
+
+          <div
+            class="scale-marker"
+            [style.left.%]="indicatorPosition">
+          </div>
+        </div>
+
+        <div class="scale-labels">
+          <span>Underweight</span>
+          <span>Normal</span>
+          <span>Overweight</span>
+          <span>Obesity</span>
+        </div>
+
+        <p class="result-note">
+          BMI is a screening measure, not a diagnosis. It does not directly
+          measure body fat or distinguish muscle from fat.
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Fitness Measurements -->
+  <section class="panel measurements-panel">
+    <div class="section-heading">
+      <div>
+        <h2>Your Measurements</h2>
+        <p>Values entered in the calculator.</p>
+      </div>
+      <i class="bi bi-bar-chart-line"></i>
+    </div>
+
+    <div class="measurement-grid">
+      <div class="measurement-item">
+        <div class="measurement-icon blue">
+          <i class="bi bi-rulers"></i>
+        </div>
+        <div>
+          <p>Height</p>
+          <h3>{{ height > 0 ? height + ' cm' : '--' }}</h3>
+        </div>
+      </div>
+
+      <div class="measurement-item">
+        <div class="measurement-icon green">
+          <i class="bi bi-person-standing"></i>
+        </div>
+        <div>
+          <p>Weight</p>
+          <h3>{{ weight > 0 ? weight + ' kg' : '--' }}</h3>
+        </div>
+      </div>
+
+      <div class="measurement-item">
+        <div class="measurement-icon purple-bg">
+          <i class="bi bi-heart-pulse"></i>
+        </div>
+        <div>
+          <p>BMI</p>
+          <h3>{{ bmi !== null ? bmi : '--' }}</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fitness Suggestions -->
+  <section class="panel suggestions-panel">
+    <div class="section-heading">
+      <div>
+        <h2>Fitness Suggestions</h2>
+        <p>General guidance based on your BMI category.</p>
+      </div>
+      <i class="bi bi-lightbulb"></i>
+    </div>
+
+    <div class="suggestion-content" *ngIf="bmi !== null">
+      <div class="suggestion-icon">
+        <i class="bi bi-check2-circle"></i>
+      </div>
+      <div>
+        <h3>{{ category }}</h3>
+        <p>{{ suggestion }}</p>
+      </div>
+    </div>
+
+    <div class="suggestion-content" *ngIf="bmi === null">
+      <div class="suggestion-icon">
+        <i class="bi bi-info-circle"></i>
+      </div>
+      <div>
+        <h3>Start with your measurements</h3>
+        <p>
+          Calculate your BMI to see general fitness guidance.
+          For all-around fitness, aim for consistent activity,
+          balanced nutrition, strength training and good sleep.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</div>

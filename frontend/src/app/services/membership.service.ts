@@ -64,9 +64,9 @@ export class MembershipService {
     );
   }
 
-  getMembers() {
+  getMembers(): Observable<any> {
     return this.http.get(
-      'http://localhost:3000/api/reports/members',
+      'http://localhost:3000/api/trainer/members',
       this.getHeaders()
     );
   }

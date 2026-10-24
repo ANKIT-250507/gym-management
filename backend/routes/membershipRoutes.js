@@ -14,8 +14,18 @@ const {
     updateMembership,
     deleteMembership,
     getExpiredMemberships,
-    getMembershipAlerts
+    getMembershipAlerts,
+    getMyMembership
 } = require("../controllers/membershipController");
+
+
+// Member: Get Own Membership
+router.get(
+    "/my",
+    protect,
+    authorize("member"),
+    getMyMembership
+);
 
 // Admin Create Membership
 router.post(
