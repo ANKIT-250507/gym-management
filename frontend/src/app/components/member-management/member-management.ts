@@ -30,12 +30,12 @@ export class MemberManagement implements OnInit {
 
     this.memberService.getMembers().subscribe({
       next: (res: any) => {
-        this.members = res;
-        this.filteredMembers = res;
+        this.members = Array.isArray(res) ? res : res.members || [];
+        this.filteredMembers = [...this.members];
         this.loading = false;
       },
       error: (err) => {
-        console.error(err);
+        console.error('Load Members Error:', err);
         this.loading = false;
       }
     });
