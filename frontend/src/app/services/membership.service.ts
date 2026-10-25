@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MembershipService {
 
-  private apiUrl = 'http://localhost:3000/api/membership';
+  private apiUrl = 'https://gym-management-3v55.onrender.com/membership';
 
   constructor(private http: HttpClient) { }
 
@@ -66,7 +66,7 @@ export class MembershipService {
 
   getMembers(): Observable<any> {
     return this.http.get(
-      'http://localhost:3000/api/trainer/members',
+      'https://gym-management-3v55.onrender.com/trainer/members',
       this.getHeaders()
     );
   }

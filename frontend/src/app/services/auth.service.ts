@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,10 +8,21 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:3000/api/auth';
-  private memberApiUrl = 'http://localhost:3000/api/member';
+  private baseUrl = 'https://gym-management-3v55.onrender.com/api';
 
-  constructor(private http: HttpClient) { }
+  private apiUrl = `${this.baseUrl}/auth`;
+  private memberApiUrl = `${this.baseUrl}/member`;
+  private workoutApiUrl = `${this.baseUrl}/workout`;
+
+  constructor(private http: HttpClient) {}
+
+  private getHeaders(): HttpHeaders {
+    const token = this.getToken();
+
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+  }
 
   login(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, data);
@@ -21,81 +33,52 @@ export class AuthService {
   }
 
   getMemberProfile(): Observable<any> {
-
-    const token = this.getToken();
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-
     return this.http.get(
       `${this.memberApiUrl}/profile`,
-      { headers }
+      { headers: this.getHeaders() }
     );
   }
 
   updateMemberProfile(data: any): Observable<any> {
-
-    const token = this.getToken();
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-
     return this.http.put(
       `${this.memberApiUrl}/profile`,
       data,
-      { headers }
+      { headers: this.getHeaders() }
     );
   }
 
-  saveToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
-  getToken() {
-    return localStorage.getItem('token');
-  }
-
-  saveUser(user: any) {
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-
-  getUser() {
-    return JSON.parse(localStorage.getItem('user') || '{}');
-  }
-
   getMemberWorkout(): Observable<any> {
-
-    const token = this.getToken();
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-
     return this.http.get(
-      `http://localhost:3000/api/workout/member`,
-      { headers }
+      `${this.workoutApiUrl}/member`,
+      { headers: this.getHeaders() }
     );
   }
 
   completeMemberWorkout(id: string): Observable<any> {
+    return this.http.put(
+      `${this.workoutApiUrl}/member/${id}/complete`,
+      {},
+      { headers: this.getHeaders() }
+    );
+  }
 
-  const token = this.getToken();
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
 
-  const headers = new HttpHeaders({
-    Authorization: `Bearer ${token}`
-  });
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
 
-  return this.http.put(
-    `http://localhost:3000/api/workout/member/${id}/complete`,
-    {},
-    { headers }
-  );
+  saveUser(user: any): void {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
 
-}
+  getUser(): any {
+    return JSON.parse(localStorage.getItem('user') || '{}');
+  }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   }

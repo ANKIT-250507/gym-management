@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MemberService {
 
-  private apiUrl = "http://localhost:3000/api/member";
+  private apiUrl = "https://gym-management-3v55.onrender.com/api/member";
 
   constructor(private http: HttpClient) { }
 

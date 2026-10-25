@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AttendanceService {
-  private apiUrl = "http://localhost:3000/api/attendance";
+  private apiUrl = 'https://gym-management-3v55.onrender.com/api/attendance';;
   constructor(private http: HttpClient) {}
   private getHeaders() {
 

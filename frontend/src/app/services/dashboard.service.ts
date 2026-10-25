@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DashboardService {
 
-  private apiUrl = 'http://localhost:3000/api/dashboard';
+  private apiUrl = 'https://gym-management-3v55.onrender.com/api/dashboard';
 
   constructor(private http: HttpClient) {}
 

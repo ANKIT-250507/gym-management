@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class NotificationService {
 
-  private apiUrl = "http://localhost:3000/api/notifications";
+  private apiUrl = "https://gym-management-3v55.onrender.com/api/notifications";
 
   constructor(
     private http: HttpClient
