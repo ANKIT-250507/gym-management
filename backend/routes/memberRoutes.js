@@ -7,6 +7,7 @@ const {
 
 const {
     createMember,
+    createTrainer,
     getProfile,
     updateProfile,
     getAllMembers,
@@ -21,6 +22,13 @@ router.post(
     protect,
     authorize("admin"),
     createMember
+);
+
+router.post(
+    "/create-trainer",
+    protect,
+    authorize("admin"),
+    createTrainer
 );
 
 router.get(

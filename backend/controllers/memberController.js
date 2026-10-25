@@ -67,6 +67,62 @@ const createMember = async (req, res) => {
     }
 };
 
+const createTrainer = async (req, res) => {
+    try {
+        const { name, email, password, phone } = req.body;
+
+        if (!name || !email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Name, email and password are required"
+            });
+        }
+
+        const normalizedEmail = email.toLowerCase().trim();
+
+        const existingUser = await User.findOne({
+            email: normalizedEmail
+        });
+
+        if (existingUser) {
+            return res.status(400).json({
+                success: false,
+                message: "Email already exists"
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const trainer = await User.create({
+            name: name.trim(),
+            email: normalizedEmail,
+            password: hashedPassword,
+            phone: phone || "",
+            role: "trainer"
+        });
+
+        return res.status(201).json({
+            success: true,
+            message: "Trainer created successfully",
+            trainer: {
+                id: trainer._id,
+                name: trainer.name,
+                email: trainer.email,
+                phone: trainer.phone,
+                role: trainer.role
+            }
+        });
+
+    } catch (error) {
+        console.error("Create Trainer Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to create trainer"
+        });
+    }
+};
+
 const getAllMembers = async (req, res) => {
     try {
 
@@ -236,6 +292,7 @@ const deleteMember = async (req, res) => {
 
 module.exports = {
     createMember,
+    createTrainer,
     getProfile,
     updateProfile,
     getAllMembers,

@@ -19,6 +19,11 @@
             Add Member
         </button>
 
+        <button class="add-btn" (click)="showTrainerModal = true">
+            <i class="bi bi-person-badge"></i>
+            Add Trainer
+        </button>
+
     </div>
 
     <div class="toolbar">
@@ -134,5 +139,30 @@
 
         </div>
 
+    </div>
+
+    <!-- Add Trainer Modal -->
+    <div class="modal-backdrop" *ngIf="showTrainerModal">
+        <div class="modal-box">
+
+            <h2>Add Trainer</h2>
+
+            <input type="text" placeholder="Trainer Name" [(ngModel)]="newTrainer.name">
+
+            <input type="email" placeholder="Trainer Email" [(ngModel)]="newTrainer.email">
+
+            <input type="password" placeholder="Temporary Password" [(ngModel)]="newTrainer.password">
+
+            <input type="text" placeholder="Phone Number (optional)" [(ngModel)]="newTrainer.phone">
+
+            <button (click)="addTrainer()">
+                Create Trainer
+            </button>
+
+            <button (click)="showTrainerModal = false">
+                Cancel
+            </button>
+
+        </div>
     </div>
 </div>

@@ -1,58 +1,52 @@
+
 <div class="login-container">
+  <div class="login-card">
 
-    <div class="login-card">
+    <h2>Create Account</h2>
 
-        <h2>Create Account</h2>
-
-        <div class="mb-3">
-            <label>Name</label>
-            <input class="form-control"
-                [(ngModel)]="name"
-                name="name">
-        </div>
-
-        <div class="mb-3">
-            <label>Email</label>
-            <input class="form-control"
-                [(ngModel)]="email"
-                name="email">
-        </div>
-
-        <div class="mb-3">
-            <label>Password</label>
-            <input type="password"
-                class="form-control"
-                [(ngModel)]="password"
-                name="password">
-        </div>
-
-        <div class="mb-3">
-            <label>Role</label>
-
-            <select class="form-select"
-                [(ngModel)]="role"
-                name="role">
-
-                <option value="member">Member</option>
-                <option value="trainer">Trainer</option>
-                <option value="admin">Admin</option>
-
-            </select>
-
-        </div>
-
-        <button
-            class="btn btn-success w-100"
-            (click)="register()">
-
-            Register
-
-        </button>
-
-        <div class="text-center mt-3">
-            <a routerLink="/">Already have an account?</a>
-        </div>
-
+    <div class="mb-3">
+      <label>Name</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="name"
+        name="name"
+        required
+      >
     </div>
 
+    <div class="mb-3">
+      <label>Email</label>
+      <input
+        type="email"
+        class="form-control"
+        [(ngModel)]="email"
+        name="email"
+        required
+      >
+    </div>
+
+    <div class="mb-3">
+      <label>Password</label>
+      <input
+        type="password"
+        class="form-control"
+        [(ngModel)]="password"
+        name="password"
+        required
+      >
+    </div>
+
+    <button
+      class="btn btn-success w-100"
+      (click)="register()"
+    >
+      Register
+    </button>
+
+    <div class="text-center mt-3">
+      <a routerLink="/">Already have an account?</a>
+    </div>
+
+  </div>
 </div>

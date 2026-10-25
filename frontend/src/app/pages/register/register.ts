@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -15,39 +16,33 @@ export class Register {
   name = '';
   email = '';
   password = '';
-  role = 'member';
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
 
-  register() {
+  register(): void {
+    if (!this.name.trim() || !this.email.trim() || !this.password) {
+      alert('Please fill all fields');
+      return;
+    }
 
     const data = {
-      name: this.name,
-      email: this.email,
+      name: this.name.trim(),
+      email: this.email.trim(),
       password: this.password,
-      role: this.role
+      role: 'member'
     };
 
     this.authService.register(data).subscribe({
-
       next: () => {
-
-        alert("Registration Successful");
+        alert('Registration Successful');
         this.router.navigate(['/']);
-
       },
-
       error: (err) => {
-
-        alert(err.error.message);
-
+        alert(err.error?.message || 'Registration failed');
       }
-
     });
-
   }
-
 }

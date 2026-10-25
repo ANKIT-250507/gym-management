@@ -36,6 +36,14 @@ export class MemberService {
     );
   }
 
+  addTrainer(trainer: any): Observable<any> {
+  return this.http.post(
+    `${this.apiUrl}/create-trainer`,
+    trainer,
+    this.getHeaders()
+  );
+}
+
   deleteMember(id: string): Observable<any> {
     return this.http.delete(
       `${this.apiUrl}/${id}`,

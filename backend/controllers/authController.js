@@ -1,80 +1,100 @@
+
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
+
+// REGISTER - Only Member
 const registerUser = async (req, res) => {
-
     try {
+        const { name, email, password } = req.body;
 
-        const { name, email, password, role } = req.body;
-        if (!name || !email || !password || !role) {
+        if (!name || !email || !password) {
             return res.status(400).json({
                 success: false,
-                message: "All fields are required"
+                message: "Name, email and password are required"
             });
         }
 
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({
+            email: email.toLowerCase().trim()
+        });
 
         if (existingUser) {
             return res.status(400).json({
+                success: false,
                 message: "User already exists"
             });
         }
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const user = await User.create({
-            name,
-            email,
+            name: name.trim(),
+            email: email.toLowerCase().trim(),
             password: hashedPassword,
-            role
+            role: "member"
         });
 
-        res.status(201).json({
-            message: "User Registered Successfully",
-            user
+        return res.status(201).json({
+            success: true,
+            message: "Member Registered Successfully",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
         });
 
     } catch (error) {
+        console.error("Registration Error:", error);
 
-        res.status(500).json({
-            message: error.message
+        return res.status(500).json({
+            success: false,
+            message: "Registration failed"
         });
-
     }
-
 };
 
+// LOGIN - Admin, Trainer and Member
 const loginUser = async (req, res) => {
-
     try {
-
         const { email, password } = req.body;
+
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
-                message: "Email and Password are required"
+                message: "Email and password are required"
             });
         }
 
-        const user = await User.findOne({ email }).select("+password");
+        const user = await User.findOne({
+            email: email.toLowerCase().trim()
+        }).select("+password");
 
         if (!user) {
-            return res.status(400).json({
-                message: "Invalid Email or Password"
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password"
             });
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(
+            password,
+            user.password
+        );
 
         if (!isMatch) {
-            return res.status(400).json({
-                message: "Invalid Email or Password"
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password"
             });
         }
 
-        const token = generateToken(user);
+        const token = generateToken(user._id);
 
-        res.status(200).json({
+        return res.status(200).json({
+            success: true,
             message: "Login Successful",
             token,
             user: {
@@ -84,14 +104,15 @@ const loginUser = async (req, res) => {
                 role: user.role
             }
         });
+
     } catch (error) {
+        console.error("Login Error:", error);
 
-        res.status(500).json({
-            message: error.message
+        return res.status(500).json({
+            success: false,
+            message: "Login failed"
         });
-
     }
-
 };
 
 module.exports = {

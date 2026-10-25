@@ -42,6 +42,15 @@ export class MemberManagement implements OnInit {
   }
   showAddModal = false;
 
+  showTrainerModal = false;
+
+  newTrainer = {
+    name: '',
+    email: '',
+    password: '',
+    phone: ''
+  };
+
   newMember = {
     name: '',
     email: '',
@@ -120,6 +129,36 @@ export class MemberManagement implements OnInit {
 
     });
 
+  }
+
+  addTrainer() {
+    if (
+      !this.newTrainer.name.trim() ||
+      !this.newTrainer.email.trim() ||
+      !this.newTrainer.password
+    ) {
+      alert('Name, email and password are required');
+      return;
+    }
+
+    this.memberService.addTrainer(this.newTrainer).subscribe({
+      next: (res: any) => {
+        alert(res.message || 'Trainer Added Successfully');
+
+        this.showTrainerModal = false;
+
+        this.newTrainer = {
+          name: '',
+          email: '',
+          password: '',
+          phone: ''
+        };
+      },
+      error: (err: any) => {
+        console.error(err);
+        alert(err.error?.message || 'Trainer creation failed');
+      }
+    });
   }
 
   deleteMember(id: string) {
