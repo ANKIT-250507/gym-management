@@ -9,7 +9,8 @@ const {
 
 const {
     getDashboard,
-    getRecentMembers
+    getRecentMembers,
+    getChartData
 } = require("../controllers/dashboardController");
 
 
@@ -26,6 +27,13 @@ router.get(
     protect,
     authorize("admin"),
     getRecentMembers
+);
+
+router.get(
+    "/charts",
+    protect,
+    authorize("admin"),
+    getChartData
 );
 
 

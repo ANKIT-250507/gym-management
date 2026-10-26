@@ -131,11 +131,79 @@ const getRecentMembers = async (req, res) => {
 
 };
 
+// Monthly Chart Data
+const getChartData = async (req, res) => {
+    try {
+        const year = new Date().getFullYear();
+
+        const membersGrowth = await User.aggregate([
+            {
+                $match: {
+                    role: "member",
+                    createdAt: {
+                        $gte: new Date(year, 0, 1),
+                        $lt: new Date(year + 1, 0, 1)
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: { $month: "$createdAt" },
+                    total: { $sum: 1 }
+                }
+            },
+            { $sort: { _id: 1 } }
+        ]);
+
+        const monthlyRevenue = await Membership.aggregate([
+            {
+                $match: {
+                    paymentStatus: "Paid",
+                    startDate: {
+                        $gte: new Date(year, 0, 1),
+                        $lt: new Date(year + 1, 0, 1)
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: { $month: "$startDate" },
+                    total: { $sum: "$fees" }
+                }
+            },
+            { $sort: { _id: 1 } }
+        ]);
+
+        const months = [
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+
+        const memberData = Array(12).fill(0);
+        const revenueData = Array(12).fill(0);
+
+        membersGrowth.forEach(item => {
+            memberData[item._id - 1] = item.total;
+        });
+
+        monthlyRevenue.forEach(item => {
+            revenueData[item._id - 1] = item.total;
+        });
+
+        res.status(200).json({
+            year,
+            labels: months,
+            membersGrowth: memberData,
+            monthlyRevenue: revenueData
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 module.exports = {
-
     getDashboard,
-
-    getRecentMembers
-
+    getRecentMembers,
+    getChartData
 };

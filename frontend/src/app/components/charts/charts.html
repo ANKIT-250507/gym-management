@@ -1,27 +1,26 @@
+
 <div class="chart-container">
 
-    <div class="chart-card">
+  <p *ngIf="loading">Loading charts...</p>
 
-        <h3>Members Growth</h3>
+  <p *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </p>
 
-        <div class="chart-placeholder">
+  <div class="chart-card">
+    <h3>Members Growth</h3>
 
-            📈 Chart will appear here
-
-        </div>
-
+    <div class="chart-placeholder">
+      <canvas id="membersChart"></canvas>
     </div>
+  </div>
 
-    <div class="chart-card">
+  <div class="chart-card">
+    <h3>Monthly Revenue</h3>
 
-        <h3>Monthly Revenue</h3>
-
-        <div class="chart-placeholder">
-
-            💰 Revenue Chart
-
-        </div>
-
+    <div class="chart-placeholder">
+      <canvas id="revenueChart"></canvas>
     </div>
+  </div>
 
 </div>
