@@ -100,7 +100,7 @@ export class WorkoutManagement implements OnInit {
 
       next: (res: any) => {
 
-        this.workouts = res.data;
+        this.workouts = res.workouts || res.data || [];
 
         this.loading = false;
 

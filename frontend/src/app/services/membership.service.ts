@@ -65,10 +65,10 @@ export class MembershipService {
   }
 
   getMembers(): Observable<any> {
-    return this.http.get(
-      'https://gym-management-3v55.onrender.com/trainer/members',
-      this.getHeaders()
-    );
-  }
+  return this.http.get(
+    'https://gym-management-3v55.onrender.com/api/trainer/members',
+    this.getHeaders()
+  );
+}
 
 }
