@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrl: './member-notifications.css'
 })
 export class MemberNotifications implements OnInit {
-  private apiUrl = 'http://localhost:3000/api/notifications/member';
+  private apiUrl = 'https://gym-management-3v55.onrender.com/api/notifications/member';
 
   notifications: any[] = [];
   loading = true;

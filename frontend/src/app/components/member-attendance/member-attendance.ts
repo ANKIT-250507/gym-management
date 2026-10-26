@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrl: './member-attendance.css'
 })
 export class MemberAttendance implements OnInit {
-  private apiUrl = 'http://localhost:3000/api/attendance';
+  private apiUrl = 'https://gym-management-3v55.onrender.com/api/attendance';
 
   attendance: any[] = [];
   todayAttendance: any = null;

@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrl: './member-membership.css'
 })
 export class MemberMembership implements OnInit {
-  private apiUrl = 'http://localhost:3000/api/membership/my';
+  private apiUrl = 'https://gym-management-3v55.onrender.com/api/membership/my';
 
   membership: any = null;
   loading = true;
