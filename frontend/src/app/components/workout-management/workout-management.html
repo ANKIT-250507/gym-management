@@ -110,6 +110,14 @@
 
         </h3>
 
+        <p *ngIf="membersLoading">Loading members...</p>
+
+        <p *ngIf="membersError">{{ membersError }}</p>
+
+        <p *ngIf="!membersLoading && !membersError && members.length === 0">
+            No members found.
+        </p>
+
         <div class="form-group">
             <label>Select Member *</label>
 

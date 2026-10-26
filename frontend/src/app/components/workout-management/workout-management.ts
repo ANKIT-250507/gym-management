@@ -67,28 +67,30 @@ export class WorkoutManagement implements OnInit {
   }
 
   loadMembers(): void {
-    this.membersLoading = true;
-    this.membersError = '';
+  this.membersLoading = true;
+  this.membersError = '';
 
-    this.membershipService.getMembers().subscribe({
-      next: (res: any) => {
-        const list = Array.isArray(res)
-          ? res
-          : res.members || res.users || res.data || [];
+  this.membershipService.getMembers().subscribe({
+    next: (res: any) => {
+      console.log('Members API Response:', res);
 
-        this.members = list.filter(
-          (member: any) => member.role === 'member'
-        );
+      const list = Array.isArray(res)
+        ? res
+        : res.members || res.users || res.data || res.data?.members || [];
 
-        this.membersLoading = false;
-      },
-      error: (err) => {
-        console.error('Members load error:', err);
-        this.membersError = 'Members load nahi hue. Please check the API.';
-        this.membersLoading = false;
-      }
-    });
-  }
+      this.members = list.filter(
+        (member: any) => member.role?.toLowerCase() === 'member'
+      );
+
+      this.membersLoading = false;
+    },
+    error: (err) => {
+      console.error('Members load error:', err);
+      this.membersError = 'Members load nahi hue. Please check the API.';
+      this.membersLoading = false;
+    }
+  });
+}
 
   loadWorkouts() {
 
