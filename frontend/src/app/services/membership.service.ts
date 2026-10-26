@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MembershipService {
 
-  private apiUrl = 'https://gym-management-3v55.onrender.com/membership';
+  private apiUrl = 'https://gym-management-3v55.onrender.com/api/membership';
 
   constructor(private http: HttpClient) { }
 
