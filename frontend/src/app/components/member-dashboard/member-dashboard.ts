@@ -52,7 +52,7 @@ export class MemberDashboard implements OnInit {
   constructor(
   private authService: AuthService,
   private router: Router,
-  private attendanceService: AttendanceService
+  private attendanceService: AttendanceService,
   private notificationService: NotificationService
 ) {}
 
