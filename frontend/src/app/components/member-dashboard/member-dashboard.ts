@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MemberWorkout } from '../member-workout/member-workout';
 import { MemberSidebar } from '../member-sidebar/member-sidebar';
 import { AttendanceService } from '../../services/attendance.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-member-dashboard',
@@ -16,6 +17,7 @@ import { AttendanceService } from '../../services/attendance.service';
 export class MemberDashboard implements OnInit {
 
   member: any = {};
+  notifications: any[] = [];
 
   loading = true;
   saving = false;
@@ -51,11 +53,13 @@ export class MemberDashboard implements OnInit {
   private authService: AuthService,
   private router: Router,
   private attendanceService: AttendanceService
+  private notificationService: NotificationService
 ) {}
 
   ngOnInit(): void {
   this.loadMemberProfile();
   this.loadAttendance();
+  this.loadNotifications();
 }
 
 
@@ -128,6 +132,17 @@ export class MemberDashboard implements OnInit {
     },
     error: (err) => {
       console.error('Attendance Error:', err);
+    }
+  });
+
+}
+loadNotifications() {
+  this.notificationService.getNotifications().subscribe({
+    next: (res: any) => {
+      this.notifications = res.notifications || res.data || [];
+    },
+    error: (err) => {
+      console.error('Notifications Error:', err);
     }
   });
 }

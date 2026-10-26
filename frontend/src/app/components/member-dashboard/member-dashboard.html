@@ -836,24 +836,20 @@
                 </div>
 
 
+                @for (notification of notifications; track notification._id) {
                 <div class="notification">
-
-                    <div class="notification-icon">
-                        🏋️
-                    </div>
+                    <div class="notification-icon">🔔</div>
 
                     <div>
-
-                        <h3>
-                            Workout Plan</h3>
-
-                        <p>
-                            Check your assigned workout from the Workout section.
-                        </p>
-
+                        <h3>{{ notification.title }}</h3>
+                        <p>{{ notification.message }}</p>
                     </div>
-
                 </div>
+                }
+
+                @if (notifications.length === 0) {
+                <p>No notifications available.</p>
+                }
 
             </div>
 
