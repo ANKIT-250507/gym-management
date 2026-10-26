@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AttendanceService {
   private apiUrl = 'https://gym-management-3v55.onrender.com/api/attendance';;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   private getHeaders() {
 
     return {
@@ -17,6 +17,13 @@ export class AttendanceService {
     };
 
   }
+  getAttendanceHistory(): Observable<any> {
+    return this.http.get(
+      `${this.apiUrl}/history`,
+      this.getHeaders()
+    );
+  }
+
   getAllAttendance(): Observable<any> {
 
     return this.http.get(

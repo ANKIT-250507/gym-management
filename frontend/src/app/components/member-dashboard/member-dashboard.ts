@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MemberWorkout } from '../member-workout/member-workout';
 import { MemberSidebar } from '../member-sidebar/member-sidebar';
+import { AttendanceService } from '../../services/attendance.service';
 
 @Component({
   selector: 'app-member-dashboard',
   standalone: true,
-  imports: [FormsModule,MemberWorkout,MemberSidebar],
+  imports: [FormsModule, MemberWorkout, MemberSidebar],
   templateUrl: './member-dashboard.html',
   styleUrl: './member-dashboard.css'
 })
@@ -36,19 +37,26 @@ export class MemberDashboard implements OnInit {
   };
 
   attendance = 0;
+  attendanceRecords: any[] = [];
+  totalAttendance = 0;
   protein = 0;
+  bmi: number | null = null;
 
   membershipStatus = 'Active';
   membershipExpiry = 'Not Available';
 
+  
+
   constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  private authService: AuthService,
+  private router: Router,
+  private attendanceService: AttendanceService
+) {}
 
   ngOnInit(): void {
-    this.loadMemberProfile();
-  }
+  this.loadMemberProfile();
+  this.loadAttendance();
+}
 
 
   // =========================
@@ -73,6 +81,13 @@ export class MemberDashboard implements OnInit {
           res;
 
         this.loading = false;
+        const heightInMeters = Number(this.member.height) / 100;
+        const weight = Number(this.member.weight);
+
+        this.bmi =
+          heightInMeters > 0 && weight > 0
+            ? Number((weight / (heightInMeters * heightInMeters)).toFixed(1))
+            : null;
 
       },
 
@@ -103,6 +118,19 @@ export class MemberDashboard implements OnInit {
     });
 
   }
+
+  loadAttendance() {
+  this.attendanceService.getAttendanceHistory().subscribe({
+    next: (res: any) => {
+      this.attendanceRecords = res.attendance || [];
+      this.totalAttendance = res.totalRecords || 0;
+      this.attendance = this.totalAttendance;
+    },
+    error: (err) => {
+      console.error('Attendance Error:', err);
+    }
+  });
+}
 
 
   // =========================

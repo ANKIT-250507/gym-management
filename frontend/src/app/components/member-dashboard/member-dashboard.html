@@ -695,7 +695,7 @@
                     </div>
 
                     <span class="coming">
-                        {{ attendance }}%
+                        {{ totalAttendance }}
                     </span>
 
                 </div>
@@ -727,15 +727,8 @@
                 <div class="bmi-container">
 
                     <div class="bmi-number">
-
-                        <span>
-                            BMI
-                        </span>
-
-                        <strong>
-                            --
-                        </strong>
-
+                        <span>BMI</span>
+                        <strong>{{ bmi !== null ? bmi : '--' }}</strong>
                     </div>
 
 
@@ -803,70 +796,70 @@
 
             <!-- ================= NOTIFICATIONS ================= -->
 
-<div class="dashboard-card">
+            <div class="dashboard-card">
 
-    <div class="section-header">
+                <div class="section-header">
 
-        <div>
+                    <div>
 
-            <span class="label">
-                UPDATES
-            </span>
+                        <span class="label">
+                            UPDATES
+                        </span>
 
-            <h2>
-                Notifications 🔔
-            </h2>
+                        <h2>
+                            Notifications 🔔
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="notification">
+
+                    <div class="notification-icon">
+                        📢
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Welcome to Gym Management System
+                        </h3>
+
+                        <p>
+                            Your member dashboard is ready.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="notification">
+
+                    <div class="notification-icon">
+                        🏋️
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Workout Plan</h3>
+
+                        <p>
+                            Check your assigned workout from the Workout section.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
+        <!-- loading/error/main @if close -->
+
+        }
 
     </div>
-
-
-    <div class="notification">
-
-        <div class="notification-icon">
-            📢
-        </div>
-
-        <div>
-
-            <h3>
-                Welcome to Gym Management System
-            </h3>
-
-            <p>
-                Your member dashboard is ready.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="notification">
-
-        <div class="notification-icon">
-            🏋️
-        </div>
-
-        <div>
-
-            <h3>
-                Workout Plan</h3>
-
-            <p>
-                Check your assigned workout from the Workout section.
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-</div>
- <!-- loading/error/main @if close -->
-
-    }
-
-</div>
